@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Metronome FS-8: a vintage drum-machine style metronome with tap tempo and selectable beats per bar." />
+    <meta name="theme-color" content="#1a1816" />
+    <title>Metronome FS-8</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff2a14'/%3E%3C/svg%3E" />
+    
+    <style>
+      html {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        place-items: center;
+        padding: 24px 16px;
+        box-sizing: border-box;
+        background: radial-gradient(ellipse at 50% 35%, #34302b 0%, #1a1816 55%, #0c0b0a 100%);
+      }
+      metronome-app:not(:defined) {
+        display: none;
+      }
+    </style>
+    <script type="module">/**
+ * @license
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const X=globalThis,ct=X.ShadowRoot&&(X.ShadyCSS===void 0||X.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,ut=Symbol(),mt=new WeakMap;let Mt=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==ut)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(ct&&t===void 0){const i=e!==void 0&&e.length===1;i&&(t=mt.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&mt.set(e,t))}return t}toString(){return this.cssText}};const Kt=s=>new Mt(typeof s=="string"?s:s+"",void 0,ut),tt=(s,...t)=>{const e=s.length===1?s[0]:t.reduce((i,r,a)=>i+(n=>{if(n._$cssResult$===!0)return n.cssText;if(typeof n=="number")return n;throw Error("Value passed to 'css' function must be a 'css' function result: "+n+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+s[a+1],s[0]);return new Mt(e,s,ut)},qt=(s,t)=>{if(ct)s.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(const e of t){const i=document.createElement("style"),r=X.litNonce;r!==void 0&&i.setAttribute("nonce",r),i.textContent=e.cssText,s.appendChild(i)}},ft=ct?s=>s:s=>s instanceof CSSStyleSheet?(t=>{let e="";for(const i of t.cssRules)e+=i.cssText;return Kt(e)})(s):s;/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const{is:Vt,defineProperty:Ft,getOwnPropertyDescriptor:Gt,getOwnPropertyNames:Wt,getOwnPropertySymbols:Xt,getPrototypeOf:Yt}=Object,$=globalThis,xt=$.trustedTypes,Zt=xt?xt.emptyScript:"",rt=$.reactiveElementPolyfillSupport,I=(s,t)=>s,Y={toAttribute(s,t){switch(t){case Boolean:s=s?Zt:null;break;case Object:case Array:s=s==null?s:JSON.stringify(s)}return s},fromAttribute(s,t){let e=s;switch(t){case Boolean:e=s!==null;break;case Number:e=s===null?null:Number(s);break;case Object:case Array:try{e=JSON.parse(s)}catch{e=null}}return e}},gt=(s,t)=>!Vt(s,t),$t={attribute:!0,type:String,converter:Y,reflect:!1,useDefault:!1,hasChanged:gt};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),$.litPropertyMetadata??($.litPropertyMetadata=new WeakMap);let T=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??(this.l=[])).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=$t){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(t,i,e);r!==void 0&&Ft(this.prototype,t,r)}}static getPropertyDescriptor(t,e,i){const{get:r,set:a}=Gt(this.prototype,t)??{get(){return this[e]},set(n){this[e]=n}};return{get:r,set(n){const l=r==null?void 0:r.call(this);a==null||a.call(this,n),this.requestUpdate(t,l,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??$t}static _$Ei(){if(this.hasOwnProperty(I("elementProperties")))return;const t=Yt(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(I("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(I("properties"))){const e=this.properties,i=[...Wt(e),...Xt(e)];for(const r of i)this.createProperty(r,e[r])}const t=this[Symbol.metadata];if(t!==null){const e=litPropertyMetadata.get(t);if(e!==void 0)for(const[i,r]of e)this.elementProperties.set(i,r)}this._$Eh=new Map;for(const[e,i]of this.elementProperties){const r=this._$Eu(e,i);r!==void 0&&this._$Eh.set(r,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const i=new Set(t.flat(1/0).reverse());for(const r of i)e.unshift(ft(r))}else t!==void 0&&e.push(ft(t));return e}static _$Eu(t,e){const i=e.attribute;return i===!1?void 0:typeof i=="string"?i:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var t;this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),(t=this.constructor.l)==null||t.forEach(e=>e(this))}addController(t){var e;(this._$EO??(this._$EO=new Set)).add(t),this.renderRoot!==void 0&&this.isConnected&&((e=t.hostConnected)==null||e.call(t))}removeController(t){var e;(e=this._$EO)==null||e.delete(t)}_$E_(){const t=new Map,e=this.constructor.elementProperties;for(const i of e.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return qt(t,this.constructor.elementStyles),t}connectedCallback(){var t;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostConnected)==null?void 0:i.call(e)})}enableUpdating(t){}disconnectedCallback(){var t;(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostDisconnected)==null?void 0:i.call(e)})}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$ET(t,e){var a;const i=this.constructor.elementProperties.get(t),r=this.constructor._$Eu(t,i);if(r!==void 0&&i.reflect===!0){const n=(((a=i.converter)==null?void 0:a.toAttribute)!==void 0?i.converter:Y).toAttribute(e,i.type);this._$Em=t,n==null?this.removeAttribute(r):this.setAttribute(r,n),this._$Em=null}}_$AK(t,e){var a,n;const i=this.constructor,r=i._$Eh.get(t);if(r!==void 0&&this._$Em!==r){const l=i.getPropertyOptions(r),o=typeof l.converter=="function"?{fromAttribute:l.converter}:((a=l.converter)==null?void 0:a.fromAttribute)!==void 0?l.converter:Y;this._$Em=r;const h=o.fromAttribute(e,l.type);this[r]=h??((n=this._$Ej)==null?void 0:n.get(r))??h,this._$Em=null}}requestUpdate(t,e,i,r=!1,a){var n;if(t!==void 0){const l=this.constructor;if(r===!1&&(a=this[t]),i??(i=l.getPropertyOptions(t)),!((i.hasChanged??gt)(a,e)||i.useDefault&&i.reflect&&a===((n=this._$Ej)==null?void 0:n.get(t))&&!this.hasAttribute(l._$Eu(t,i))))return;this.C(t,e,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(t,e,{useDefault:i,reflect:r,wrapped:a},n){i&&!(this._$Ej??(this._$Ej=new Map)).has(t)&&(this._$Ej.set(t,n??e??this[t]),a!==!0||n!==void 0)||(this._$AL.has(t)||(this.hasUpdated||i||(e=void 0),this._$AL.set(t,e)),r===!0&&this._$Em!==t&&(this._$Eq??(this._$Eq=new Set)).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}const t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[a,n]of this._$Ep)this[a]=n;this._$Ep=void 0}const r=this.constructor.elementProperties;if(r.size>0)for(const[a,n]of r){const{wrapped:l}=n,o=this[a];l!==!0||this._$AL.has(a)||o===void 0||this.C(a,void 0,n,o)}}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),(i=this._$EO)==null||i.forEach(r=>{var a;return(a=r.hostUpdate)==null?void 0:a.call(r)}),this.update(e)):this._$EM()}catch(r){throw t=!1,this._$EM(),r}t&&this._$AE(e)}willUpdate(t){}_$AE(t){var e;(e=this._$EO)==null||e.forEach(i=>{var r;return(r=i.hostUpdated)==null?void 0:r.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&(this._$Eq=this._$Eq.forEach(e=>this._$ET(e,this[e]))),this._$EM()}updated(t){}firstUpdated(t){}};T.elementStyles=[],T.shadowRootOptions={mode:"open"},T[I("elementProperties")]=new Map,T[I("finalized")]=new Map,rt==null||rt({ReactiveElement:T}),($.reactiveElementVersions??($.reactiveElementVersions=[])).push("2.1.2");/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const z=globalThis,vt=s=>s,Z=z.trustedTypes,yt=Z?Z.createPolicy("lit-html",{createHTML:s=>s}):void 0,Ot="$lit$",x=`lit$${Math.random().toFixed(9).slice(2)}$`,Bt="?"+x,Jt=`<${Bt}>`,S=document,j=()=>S.createComment(""),L=s=>s===null||typeof s!="object"&&typeof s!="function",bt=Array.isArray,Qt=s=>bt(s)||typeof(s==null?void 0:s[Symbol.iterator])=="function",at=`[ 	
+\f\r]`,U=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,wt=/-->/g,_t=/>/g,A=RegExp(`>|${at}(?:([^\\s"'>=/]+)(${at}*=${at}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),At=/'/g,Et=/"/g,Dt=/^(?:script|style|textarea|title)$/i,Ut=s=>(t,...e)=>({_$litType$:s,strings:t,values:e}),E=Ut(1),Nt=Ut(2),M=Symbol.for("lit-noChange"),d=Symbol.for("lit-nothing"),kt=new WeakMap,k=S.createTreeWalker(S,129);function Ht(s,t){if(!bt(s)||!s.hasOwnProperty("raw"))throw Error("invalid template strings array");return yt!==void 0?yt.createHTML(t):t}const te=(s,t)=>{const e=s.length-1,i=[];let r,a=t===2?"<svg>":t===3?"<math>":"",n=U;for(let l=0;l<e;l++){const o=s[l];let h,c,p=-1,b=0;for(;b<o.length&&(n.lastIndex=b,c=n.exec(o),c!==null);)b=n.lastIndex,n===U?c[1]==="!--"?n=wt:c[1]!==void 0?n=_t:c[2]!==void 0?(Dt.test(c[2])&&(r=RegExp("</"+c[2],"g")),n=A):c[3]!==void 0&&(n=A):n===A?c[0]===">"?(n=r??U,p=-1):c[1]===void 0?p=-2:(p=n.lastIndex-c[2].length,h=c[1],n=c[3]===void 0?A:c[3]==='"'?Et:At):n===Et||n===At?n=A:n===wt||n===_t?n=U:(n=A,r=void 0);const f=n===A&&s[l+1].startsWith("/>")?" ":"";a+=n===U?o+Jt:p>=0?(i.push(h),o.slice(0,p)+Ot+o.slice(p)+x+f):o+x+(p===-2?l:f)}return[Ht(s,a+(s[e]||"<?>")+(t===2?"</svg>":t===3?"</math>":"")),i]};class K{constructor({strings:t,_$litType$:e},i){let r;this.parts=[];let a=0,n=0;const l=t.length-1,o=this.parts,[h,c]=te(t,e);if(this.el=K.createElement(h,i),k.currentNode=this.el.content,e===2||e===3){const p=this.el.content.firstChild;p.replaceWith(...p.childNodes)}for(;(r=k.nextNode())!==null&&o.length<l;){if(r.nodeType===1){if(r.hasAttributes())for(const p of r.getAttributeNames())if(p.endsWith(Ot)){const b=c[n++],f=r.getAttribute(p).split(x),V=/([.?@])?(.*)/.exec(b);o.push({type:1,index:a,name:V[2],strings:f,ctor:V[1]==="."?se:V[1]==="?"?ie:V[1]==="@"?re:et}),r.removeAttribute(p)}else p.startsWith(x)&&(o.push({type:6,index:a}),r.removeAttribute(p));if(Dt.test(r.tagName)){const p=r.textContent.split(x),b=p.length-1;if(b>0){r.textContent=Z?Z.emptyScript:"";for(let f=0;f<b;f++)r.append(p[f],j()),k.nextNode(),o.push({type:2,index:++a});r.append(p[b],j())}}}else if(r.nodeType===8)if(r.data===Bt)o.push({type:2,index:a});else{let p=-1;for(;(p=r.data.indexOf(x,p+1))!==-1;)o.push({type:7,index:a}),p+=x.length-1}a++}}static createElement(t,e){const i=S.createElement("template");return i.innerHTML=t,i}}function O(s,t,e=s,i){var n,l;if(t===M)return t;let r=i!==void 0?(n=e._$Co)==null?void 0:n[i]:e._$Cl;const a=L(t)?void 0:t._$litDirective$;return(r==null?void 0:r.constructor)!==a&&((l=r==null?void 0:r._$AO)==null||l.call(r,!1),a===void 0?r=void 0:(r=new a(s),r._$AT(s,e,i)),i!==void 0?(e._$Co??(e._$Co=[]))[i]=r:e._$Cl=r),r!==void 0&&(t=O(s,r._$AS(s,t.values),r,i)),t}let ee=class{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:i}=this._$AD,r=((t==null?void 0:t.creationScope)??S).importNode(e,!0);k.currentNode=r;let a=k.nextNode(),n=0,l=0,o=i[0];for(;o!==void 0;){if(n===o.index){let h;o.type===2?h=new q(a,a.nextSibling,this,t):o.type===1?h=new o.ctor(a,o.name,o.strings,this,t):o.type===6&&(h=new ae(a,this,t)),this._$AV.push(h),o=i[++l]}n!==(o==null?void 0:o.index)&&(a=k.nextNode(),n++)}return k.currentNode=S,r}p(t){let e=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}};class q{get _$AU(){var t;return((t=this._$AM)==null?void 0:t._$AU)??this._$Cv}constructor(t,e,i,r){this.type=2,this._$AH=d,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=r,this._$Cv=(r==null?void 0:r.isConnected)??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return e!==void 0&&(t==null?void 0:t.nodeType)===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=O(this,t,e),L(t)?t===d||t==null||t===""?(this._$AH!==d&&this._$AR(),this._$AH=d):t!==this._$AH&&t!==M&&this._(t):t._$litType$!==void 0?this.$(t):t.nodeType!==void 0?this.T(t):Qt(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==d&&L(this._$AH)?this._$AA.nextSibling.data=t:this.T(S.createTextNode(t)),this._$AH=t}$(t){var a;const{values:e,_$litType$:i}=t,r=typeof i=="number"?this._$AC(t):(i.el===void 0&&(i.el=K.createElement(Ht(i.h,i.h[0]),this.options)),i);if(((a=this._$AH)==null?void 0:a._$AD)===r)this._$AH.p(e);else{const n=new ee(r,this),l=n.u(this.options);n.p(e),this.T(l),this._$AH=n}}_$AC(t){let e=kt.get(t.strings);return e===void 0&&kt.set(t.strings,e=new K(t)),e}k(t){bt(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let i,r=0;for(const a of t)r===e.length?e.push(i=new q(this.O(j()),this.O(j()),this,this.options)):i=e[r],i._$AI(a),r++;r<e.length&&(this._$AR(i&&i._$AB.nextSibling,r),e.length=r)}_$AR(t=this._$AA.nextSibling,e){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,e);t!==this._$AB;){const r=vt(t).nextSibling;vt(t).remove(),t=r}}setConnected(t){var e;this._$AM===void 0&&(this._$Cv=t,(e=this._$AP)==null||e.call(this,t))}}let et=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,r,a){this.type=1,this._$AH=d,this._$AN=void 0,this.element=t,this.name=e,this._$AM=r,this.options=a,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=d}_$AI(t,e=this,i,r){const a=this.strings;let n=!1;if(a===void 0)t=O(this,t,e,0),n=!L(t)||t!==this._$AH&&t!==M,n&&(this._$AH=t);else{const l=t;let o,h;for(t=a[0],o=0;o<a.length-1;o++)h=O(this,l[i+o],e,o),h===M&&(h=this._$AH[o]),n||(n=!L(h)||h!==this._$AH[o]),h===d?t=d:t!==d&&(t+=(h??"")+a[o+1]),this._$AH[o]=h}n&&!r&&this.j(t)}j(t){t===d?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}};class se extends et{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===d?void 0:t}}let ie=class extends et{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==d)}};class re extends et{constructor(t,e,i,r,a){super(t,e,i,r,a),this.type=5}_$AI(t,e=this){if((t=O(this,t,e,0)??d)===M)return;const i=this._$AH,r=t===d&&i!==d||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,a=t!==d&&(i===d||r);r&&this.element.removeEventListener(this.name,this,i),a&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var e;typeof this._$AH=="function"?this._$AH.call(((e=this.options)==null?void 0:e.host)??this.element,t):this._$AH.handleEvent(t)}}class ae{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){O(this,t)}}const nt=z.litHtmlPolyfillSupport;nt==null||nt(K,q),(z.litHtmlVersions??(z.litHtmlVersions=[])).push("3.3.3");const ne=(s,t,e)=>{const i=(e==null?void 0:e.renderBefore)??t;let r=i._$litPart$;if(r===void 0){const a=(e==null?void 0:e.renderBefore)??null;i._$litPart$=r=new q(t.insertBefore(j(),a),a,void 0,e??{})}return r._$AI(s),r};/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const P=globalThis;class v extends T{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var e;const t=super.createRenderRoot();return(e=this.renderOptions).renderBefore??(e.renderBefore=t.firstChild),t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=ne(e,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),(t=this._$Do)==null||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),(t=this._$Do)==null||t.setConnected(!1)}render(){return M}}var Tt;v._$litElement$=!0,v.finalized=!0,(Tt=P.litElementHydrateSupport)==null||Tt.call(P,{LitElement:v});const ot=P.litElementPolyfillSupport;ot==null||ot({LitElement:v});(P.litElementVersions??(P.litElementVersions=[])).push("4.2.2");/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const st=s=>(t,e)=>{e!==void 0?e.addInitializer(()=>{customElements.define(s,t)}):customElements.define(s,t)};/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const oe={attribute:!0,type:String,converter:Y,reflect:!1,hasChanged:gt},le=(s=oe,t,e)=>{const{kind:i,metadata:r}=e;let a=globalThis.litPropertyMetadata.get(r);if(a===void 0&&globalThis.litPropertyMetadata.set(r,a=new Map),i==="setter"&&((s=Object.create(s)).wrapped=!0),a.set(e.name,s),i==="accessor"){const{name:n}=e;return{set(l){const o=t.get.call(this);t.set.call(this,l),this.requestUpdate(n,o,s,!0,l)},init(l){return l!==void 0&&this.C(n,void 0,s,l),l}}}if(i==="setter"){const{name:n}=e;return function(l){const o=this[n];t.call(this,l),this.requestUpdate(n,o,s,!0,l)}}throw Error("Unsupported decorator location: "+i)};function y(s){return(t,e)=>typeof e=="object"?le(s,t,e):((i,r,a)=>{const n=r.hasOwnProperty(a);return r.constructor.createProperty(a,i),n?Object.getOwnPropertyDescriptor(r,a):void 0})(s,t,e)}/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */function w(s){return y({...s,state:!0,attribute:!1})}/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const Pt=(s,t,e)=>(e.configurable=!0,e.enumerable=!0,Reflect.decorate&&typeof t!="object"&&Object.defineProperty(s,t,e),e);/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */function Rt(s,t){return(e,i,r)=>{const a=n=>{var l;return((l=n.renderRoot)==null?void 0:l.querySelector(s))??null};if(t){const{get:n,set:l}=typeof i=="object"?e:r??(()=>{const o=Symbol();return{get(){return this[o]},set(h){this[o]=h}}})();return Pt(e,i,{get(){let o=n.call(this);return o===void 0&&(o=a(this),(o!==null||this.hasUpdated)&&l.call(this,o)),o}})}return Pt(e,i,{get(){return a(this)}})}}const pe=25,he=.1,de=1600,ce=1100,ue=.9,ge=.7,be=800,me=.6;class fe{constructor(){this.bpm=120,this.beatsPerBar=4,this.nextTime=0,this.beat=0,this.pending=[],this.drain=()=>{var e;const t=this.ctx.currentTime;for(;this.pending.length&&this.pending[0].time<=t;)(e=this.onBeat)==null||e.call(this,this.pending.shift().beat);this.frameId=requestAnimationFrame(this.drain)}}get running(){return this.timerId!==void 0}start(){if(this.running)return;const t=this.ensureContext();this.beat=0,this.pending=[],this.nextTime=t.currentTime+.06,this.schedule(),this.timerId=window.setInterval(()=>this.schedule(),pe),this.frameId=requestAnimationFrame(this.drain)}stop(){window.clearInterval(this.timerId),this.frameId!==void 0&&cancelAnimationFrame(this.frameId),this.timerId=void 0,this.frameId=void 0,this.pending=[]}playTap(){const t=this.ensureContext();this.click(t.currentTime,be,me)}ensureContext(){return this.ctx??(this.ctx=new AudioContext),this.ctx.resume(),this.ctx}schedule(){const t=this.ctx;for(;this.nextTime<t.currentTime+he;){this.beat>=this.beatsPerBar&&(this.beat=0);const e=this.beat===0;this.click(this.nextTime,e?de:ce,e?ue:ge),this.pending.push({time:this.nextTime,beat:this.beat}),this.nextTime+=60/this.bpm,this.beat++}}click(t,e,i){const r=this.ctx,a=r.createOscillator(),n=r.createGain();a.frequency.value=e,n.gain.setValueAtTime(0,t),n.gain.linearRampToValueAtTime(i,t+.001),n.gain.exponentialRampToValueAtTime(1e-4,t+.06),a.connect(n).connect(r.destination),a.start(t),a.stop(t+.07)}}const It=120,xe=.5,$e=.1;class zt{constructor(t,e,i=0){this.getValue=t,this.setValue=e,this.thresholdPx=i,this.dragged=!1,this.pointerDown=r=>{r.button===0&&(r.currentTarget.setPointerCapture(r.pointerId),this.start={x:r.clientX,y:r.clientY,value:this.getValue()},this.dragged=!1)},this.pointerMove=r=>{if(!this.start)return;const a=r.clientX-this.start.x,n=this.start.y-r.clientY;!this.dragged&&Math.hypot(a,n)<this.thresholdPx||(this.dragged=!0,this.setValue(Math.round(this.start.value+(a+n)*(r.shiftKey?$e:xe))))},this.pointerUp=()=>{this.start=void 0},this.wheel=r=>{r.preventDefault();const a=r.deltaY||r.deltaX;a&&this.setValue(this.getValue()+(a<0?1:-1))}}}var ve=Object.defineProperty,ye=Object.getOwnPropertyDescriptor,jt=(s,t,e,i)=>{for(var r=i>1?void 0:i?ye(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&ve(t,e,r),r};const we=40,Lt=72,D=7,u=1.2,N=D/2,H=we-D/2,lt=D/2,R=Lt/2,pt=Lt-D/2;function ht(s,t,e){const i=D/2;return`${t},${s} ${t+i},${s-i} ${e-i},${s-i} ${e},${s} ${e-i},${s+i} ${t+i},${s+i}`}function F(s,t,e){const i=D/2;return`${s},${t} ${s+i},${t+i} ${s+i},${e-i} ${s},${e} ${s-i},${e-i} ${s-i},${t+i}`}const _e={a:ht(lt,N+u,H-u),b:F(H,lt+u,R-u),c:F(H,R+u,pt-u),d:ht(pt,N+u,H-u),e:F(N,R+u,pt-u),f:F(N,lt+u,R-u),g:ht(R,N+u,H-u)},Ae={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcdfg","-":"g",_:"d"," ":""};let J=class extends v{constructor(){super(...arguments),this.text=""}render(){return[...this.text].map(s=>{const t=Ae[s]??"";return E`<svg viewBox="-9 -1 52 74" aria-hidden="true">
+        <g transform="skewX(-6)">
+          ${Object.entries(_e).map(([e,i])=>Nt`<polygon points=${i} class=${t.includes(e)?"on":"off"}></polygon>`)}
+        </g>
+      </svg>`})}};J.styles=tt`
+    :host {
+      display: inline-flex;
+      gap: 0.35em;
+    }
+    svg {
+      height: 1em;
+      width: auto;
+      overflow: visible;
+      filter: drop-shadow(0 0 0.06em rgba(255, 45, 22, 0.75));
+    }
+    .on {
+      fill: #ff3a1f;
+    }
+    .off {
+      fill: rgba(255, 58, 31, 0.07);
+    }
+  `;jt([y()],J.prototype,"text",2);J=jt([st("segment-display")],J);var Ee=Object.defineProperty,ke=Object.getOwnPropertyDescriptor,_=(s,t,e,i)=>{for(var r=i>1?void 0:i?ke(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&Ee(t,e,r),r};let g=class extends v{constructor(){super(...arguments),this.value=120,this.min=30,this.max=300,this.editing=!1,this.buffer="",this.gestures=new zt(()=>this.value,s=>this.emit(s),4)}render(){const s=this.editing?(this.buffer+"___").slice(0,3):String(this.value).padStart(3," ");return E`
+      <div
+        class="glass ${this.editing?"editing":""}"
+        role="button"
+        tabindex="0"
+        title="Click to type a tempo. Drag or scroll to adjust, Shift for fine control, double-click to reset."
+        aria-label="Tempo ${this.value} BPM. Activate to type a new tempo."
+        @click=${()=>!this.gestures.dragged&&this.startEdit()}
+        @dblclick=${()=>{this.finish(!1),this.emit(It)}}
+        @pointerdown=${this.gestures.pointerDown}
+        @pointermove=${this.gestures.pointerMove}
+        @pointerup=${this.gestures.pointerUp}
+        @pointercancel=${this.gestures.pointerUp}
+        @wheel=${t=>this.editing?t.preventDefault():this.gestures.wheel(t)}
+        @keydown=${t=>t.key==="Enter"&&this.startEdit()}
+      >
+        <segment-display .text=${s}></segment-display>
+        <span class="unit">BPM</span>
+        <input
+          inputmode="numeric"
+          autocomplete="off"
+          aria-label="Tempo in BPM, ${this.min} to ${this.max}"
+          @input=${this.onInput}
+          @keydown=${this.onInputKeyDown}
+          @blur=${()=>this.finish(!0)}
+        />
+      </div>
+    `}async startEdit(){this.editing||(this.buffer="",this.editing=!0,await this.updateComplete,this.input.value="",this.input.focus())}onInput(){this.buffer=this.input.value.replace(/\D/g,"").slice(0,3),this.input.value=this.buffer}onInputKeyDown(s){(s.key==="Enter"||s.key==="Escape")&&(s.preventDefault(),s.stopPropagation(),this.finish(s.key==="Enter"))}finish(s){this.editing&&(this.editing=!1,s&&this.buffer&&this.emit(Number(this.buffer)),this.shadowRoot.activeElement===this.input&&this.glass.focus())}emit(s){const t=Math.min(this.max,Math.max(this.min,s));t!==this.value&&this.dispatchEvent(new CustomEvent("tempo-change",{detail:t,bubbles:!0,composed:!0}))}};g.styles=tt`
+    :host {
+      display: block;
+    }
+    .glass {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.6rem;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.9rem 1.1rem 0.8rem;
+      border-radius: 4px;
+      background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px),
+        radial-gradient(ellipse at 50% 60%, #3a0e08 0%, #1a0604 55%, #0d0302 100%);
+      /* Recessed window: dark gasket, bevelled plastic frame, highlight on the panel lip */
+      box-shadow:
+        inset 0 3px 12px rgba(0, 0, 0, 0.95),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+        0 0 0 4px #141412,
+        0 0 0 5px #050505,
+        0 -1px 0 5px rgba(0, 0, 0, 0.5),
+        0 1px 0 5px rgba(255, 255, 255, 0.09);
+      cursor: ns-resize;
+      touch-action: none;
+      outline: none;
+      overflow: hidden;
+    }
+    /* Glass reflection */
+    .glass::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(168deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 38%, transparent 38.5%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 20%);
+      pointer-events: none;
+    }
+    .glass:focus-visible {
+      box-shadow:
+        inset 0 3px 12px rgba(0, 0, 0, 0.95),
+        0 0 0 4px #141412,
+        0 0 0 6px #dcb544;
+    }
+    segment-display {
+      font-size: clamp(3.4rem, 11vw, 4.6rem);
+    }
+    .editing segment-display {
+      animation: pulse 1.1s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      50% {
+        opacity: 0.55;
+      }
+    }
+    .unit {
+      font: 700 0.7rem/1 var(--label-font);
+      letter-spacing: 0.15em;
+      color: #ff3a1f;
+      opacity: 0.8;
+      padding-bottom: 0.2rem;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+  `;_([y({type:Number})],g.prototype,"value",2);_([y({type:Number})],g.prototype,"min",2);_([y({type:Number})],g.prototype,"max",2);_([w()],g.prototype,"editing",2);_([w()],g.prototype,"buffer",2);_([Rt("input")],g.prototype,"input",2);_([Rt(".glass")],g.prototype,"glass",2);g=_([st("tempo-display")],g);var Pe=Object.defineProperty,Se=Object.getOwnPropertyDescriptor,it=(s,t,e,i)=>{for(var r=i>1?void 0:i?Se(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&Pe(t,e,r),r};const Q=270,St=28,Ce=Array.from({length:St},(s,t)=>{const e=(-Q/2+Q*t/(St-1)-90)*Math.PI/180,i=t%3===0?41:44;return Nt`<line
+    x1=${50+i*Math.cos(e)}
+    y1=${50+i*Math.sin(e)}
+    x2=${50+48*Math.cos(e)}
+    y2=${50+48*Math.sin(e)}
+    class=${t%3===0?"major":""}
+  ></line>`});let B=class extends v{constructor(){super(...arguments),this.value=120,this.min=30,this.max=300,this.gestures=new zt(()=>this.value,s=>this.emit(s))}render(){const s=-Q/2+Q*(this.value-this.min)/(this.max-this.min);return E`
+      <div
+        class="wrap"
+        role="slider"
+        tabindex="0"
+        aria-label="Tempo"
+        aria-valuemin=${this.min}
+        aria-valuemax=${this.max}
+        aria-valuenow=${this.value}
+        aria-valuetext="${this.value} BPM"
+        title="Drag, scroll or use arrow keys. Shift for fine control, double-click to reset."
+        @pointerdown=${t=>{t.currentTarget.focus(),this.gestures.pointerDown(t)}}
+        @pointermove=${this.gestures.pointerMove}
+        @pointerup=${this.gestures.pointerUp}
+        @pointercancel=${this.gestures.pointerUp}
+        @wheel=${this.gestures.wheel}
+        @keydown=${this.onKeyDown}
+        @dblclick=${()=>this.emit(It)}
+      >
+        <svg class="scale" viewBox="0 0 100 100" aria-hidden="true">${Ce}</svg>
+        <div class="shadow"></div>
+        <div class="skirt" style="transform: rotate(${s}deg)"></div>
+        <div class="cap"></div>
+        <div class="pointer" style="transform: rotate(${s}deg)"></div>
+      </div>
+    `}onKeyDown(s){const t={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1,PageUp:10,PageDown:-10};if(s.key in t)this.emit(this.value+t[s.key]*(s.shiftKey?10:1));else if(s.key==="Home")this.emit(this.min);else if(s.key==="End")this.emit(this.max);else return;s.preventDefault()}emit(s){const t=Math.min(this.max,Math.max(this.min,s));t!==this.value&&this.dispatchEvent(new CustomEvent("tempo-change",{detail:t,bubbles:!0,composed:!0}))}};B.styles=tt`
+    :host {
+      display: block;
+      width: var(--knob-size, 132px);
+      aspect-ratio: 1;
+    }
+    .wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: ns-resize;
+      touch-action: none;
+      outline: none;
+      border-radius: 50%;
+    }
+    .wrap:focus-visible .shadow {
+      box-shadow:
+        0 0 0 3px #dcb544,
+        0 7px 10px rgba(0, 0, 0, 0.75);
+    }
+    .scale {
+      position: absolute;
+      inset: 0;
+      stroke: #e8e1cc;
+      stroke-width: 1.2;
+      stroke-linecap: round;
+      opacity: 0.7;
+    }
+    .scale .major {
+      stroke-width: 2;
+      opacity: 0.95;
+    }
+    /*
+     * Layers: a static drop shadow, the rotating knurled skirt, a static aluminium cap (so its
+     * highlight stays put like real light), and the rotating pointer on top.
+     */
+    .shadow,
+    .skirt,
+    .cap,
+    .pointer {
+      position: absolute;
+      border-radius: 50%;
+    }
+    .shadow,
+    .skirt,
+    .pointer {
+      inset: 15%;
+    }
+    .shadow {
+      box-shadow:
+        0 7px 10px rgba(0, 0, 0, 0.75),
+        0 14px 22px rgba(0, 0, 0, 0.4);
+    }
+    .skirt {
+      background:
+        radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.5) 100%),
+        repeating-conic-gradient(#121212 0deg 4deg, #3a3a3a 4deg 6deg, #1c1c1c 6deg 9deg);
+      box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.7);
+    }
+    .cap {
+      inset: 27%;
+      background:
+        radial-gradient(ellipse at 35% 25%, rgba(255, 255, 255, 0.7), transparent 45%),
+        conic-gradient(
+          from 15deg,
+          #8e8e8a,
+          #e9e9e5,
+          #9c9c98,
+          #d6d6d2,
+          #85857f,
+          #ececea,
+          #9a9a95,
+          #cfcfcb,
+          #8e8e8a
+        );
+      box-shadow:
+        0 0 0 2px #0d0d0d,
+        0 2px 3px 2px rgba(0, 0, 0, 0.6),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    }
+    .pointer::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 3%;
+      width: 6%;
+      height: 40%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      background: linear-gradient(180deg, #f3ecd8 0 32%, #1a1a1a 32%);
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+    }
+  `;it([y({type:Number})],B.prototype,"value",2);it([y({type:Number})],B.prototype,"min",2);it([y({type:Number})],B.prototype,"max",2);B=it([st("tempo-knob")],B);var Te=Object.defineProperty,Me=Object.getOwnPropertyDescriptor,C=(s,t,e,i)=>{for(var r=i>1?void 0:i?Me(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&Te(t,e,r),r};const G=30,W=300,dt=[1,2,3,4,5,6,7,8],Oe=2e3,Ct="metronome-settings";let m=class extends v{constructor(){super(),this.bpm=120,this.beatsPerBar=4,this.playing=!1,this.led="off",this.currentBeat=-1,this.tapFlash=!1,this.engine=new fe,this.firstTap=0,this.lastTap=-1/0,this.tapCount=0,this.onKeyDown=s=>{s.composedPath()[0]instanceof HTMLInputElement||s.ctrlKey||s.metaKey||s.altKey||(s.code==="Space"?(s.preventDefault(),s.repeat||this.togglePlay()):(s.key==="t"||s.key==="T")&&(s.repeat||this.tap()))},this.onKeyUp=s=>{s.code==="Space"&&!(s.composedPath()[0]instanceof HTMLInputElement)&&s.preventDefault()},this.loadSettings(),this.engine.bpm=this.bpm,this.engine.beatsPerBar=this.beatsPerBar,this.engine.onBeat=s=>this.flashBeat(s)}connectedCallback(){super.connectedCallback(),window.addEventListener("keydown",this.onKeyDown),window.addEventListener("keyup",this.onKeyUp)}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("keydown",this.onKeyDown),window.removeEventListener("keyup",this.onKeyUp),this.engine.stop()}render(){return E`
+      <div class="chassis">
+        <div class="cheek left"></div>
+        <div class="device">
+          <header>
+            <span class="screw tl"></span>
+            <span class="screw tr"></span>
+            <div class="brand">Metronome<span class="model">FS-8</span></div>
+            <div class="tagline">Programmable Click Composer</div>
+          </header>
+
+          <section class="controls" @tempo-change=${s=>this.setBpm(s.detail)}>
+            <tempo-display .value=${this.bpm} .min=${G} .max=${W}></tempo-display>
+            <button class="key tap" @click=${this.tap} aria-label="Tap tempo">
+              <span class="key-led ${this.tapFlash?"on":""}"></span>
+            </button>
+            <tempo-knob .value=${this.bpm} .min=${G} .max=${W}></tempo-knob>
+            <div class="led-cell">
+              <div class="bezel"><div class="led ${this.led}" role="presentation"></div></div>
+            </div>
+
+            <div class="label dim">Click to type · drag or scroll to adjust</div>
+            <div class="label">Tap</div>
+            <div class="label knob-label">Tempo</div>
+            <div class="label led-label">Beat</div>
+          </section>
+
+          <section class="sequencer">
+            <div class="label start-label">Start / Stop</div>
+            <button class="key start" @click=${this.togglePlay} aria-label=${this.playing?"Stop":"Start"}>
+              <span class="key-led ${this.playing?"on":""}"></span>
+            </button>
+
+            <div class="label title">Beats per bar</div>
+            ${dt.map((s,t)=>E`<div class="num" style="grid-area: 4 / ${t+2}">${s}</div>`)}
+            ${[0,1,2,3].map(s=>E`<div class="band" data-group=${s} style="grid-area: 2 / ${s*2+2} / 3 / span 2"></div>`)}
+            <div class="beat-buttons" role="radiogroup" aria-label="Beats per bar">
+              ${dt.map((s,t)=>E`
+                  <button
+                    class="key step"
+                    style="grid-area: 3 / ${t+2}"
+                    role="radio"
+                    aria-checked=${s===this.beatsPerBar}
+                    aria-label="${s} beats per bar"
+                    @click=${()=>this.setBeats(s)}
+                  >
+                    <span class="key-led ${s===this.beatsPerBar||t===this.currentBeat?"on":""}"></span>
+                  </button>
+                `)}
+            </div>
+          </section>
+
+          <footer>
+            <span class="screw bl"></span>
+            <span class="screw br"></span>
+            <kbd>Space</kbd> start/stop &nbsp;·&nbsp; <kbd>T</kbd> tap &nbsp;·&nbsp; drag or scroll knob or display,
+            <kbd>Shift</kbd> for fine steps
+          </footer>
+        </div>
+        <div class="cheek right"></div>
+      </div>
+    `}setBpm(s){this.bpm=Math.round(Math.min(W,Math.max(G,s))),this.engine.bpm=this.bpm,this.saveSettings()}setBeats(s){this.beatsPerBar=s,this.engine.beatsPerBar=s,this.saveSettings()}togglePlay(){this.engine.running?(this.engine.stop(),this.playing=!1,this.led="off",this.currentBeat=-1):(this.engine.start(),this.playing=!0)}tap(){const s=performance.now();s-this.lastTap>Oe&&(this.firstTap=s,this.tapCount=0),this.lastTap=s,this.tapCount++,this.tapCount>=2&&this.setBpm(6e4/((s-this.firstTap)/(this.tapCount-1))),this.engine.playTap(),this.tapFlash=!0,window.clearTimeout(this.tapTimer),this.tapTimer=window.setTimeout(()=>this.tapFlash=!1,90)}flashBeat(s){this.led=s===0?"accent":"beat",this.currentBeat=s,window.clearTimeout(this.ledTimer),this.ledTimer=window.setTimeout(()=>this.led="off",Math.min(110,3e4/this.bpm))}loadSettings(){try{const s=JSON.parse(localStorage.getItem(Ct)??"{}");typeof s.bpm=="number"&&(this.bpm=Math.min(W,Math.max(G,s.bpm))),dt.includes(s.beatsPerBar)&&(this.beatsPerBar=s.beatsPerBar)}catch{}}saveSettings(){try{const{bpm:s,beatsPerBar:t}=this;localStorage.setItem(Ct,JSON.stringify({bpm:s,beatsPerBar:t}))}catch{}}};m.styles=tt`
+    :host {
+      --ink: #e8e1cc;
+      --red: #c8402e;
+      --orange: #d9772f;
+      --yellow: #dcb544;
+      --white: #e3dcc6;
+      --label-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      /* Procedural textures (inline SVG noise) so the page needs no image requests. */
+      --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .32 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      --brushed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.002 .9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.1 0 0 0 -.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
+      --wood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='600'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .006' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .04 0 0 0 0 .01 2.6 0 0 0 -.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+      display: block;
+      width: min(100%, 940px);
+      font-family: var(--label-font);
+      color: var(--ink);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Case: walnut cheeks either side of the metal panel */
+    .chassis {
+      display: flex;
+      border-radius: 12px;
+      box-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.04),
+        0 28px 50px rgba(0, 0, 0, 0.7),
+        0 60px 90px rgba(0, 0, 0, 0.45);
+    }
+    .cheek {
+      flex: 0 0 34px;
+      background:
+        linear-gradient(90deg, rgba(255, 225, 190, 0.14), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.35)),
+        var(--wood),
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.12) 0 1px,
+          transparent 1px 3px,
+          rgba(255, 190, 140, 0.06) 3px 4px,
+          transparent 4px 7px
+        ),
+        #7d4727;
+      background-size: auto, 80px 600px, auto, auto;
+    }
+    .cheek.left {
+      border-radius: 12px 0 0 12px;
+      box-shadow:
+        inset 2px 0 2px rgba(255, 220, 180, 0.18),
+        inset -3px 0 4px rgba(0, 0, 0, 0.55);
+    }
+    .cheek.right {
+      border-radius: 0 12px 12px 0;
+      box-shadow:
+        inset -2px 0 2px rgba(255, 220, 180, 0.12),
+        inset 3px 0 4px rgba(0, 0, 0, 0.55);
+    }
+
+    .device {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      background:
+        var(--grain),
+        radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, 0.07), transparent 60%),
+        linear-gradient(180deg, #3a3935 0%, #2d2c29 45%, #242320 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    /* Phillips screws in the corners */
+    .screw {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #f4f4f0, #a9a9a3 45%, #5f5f5a 100%);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(0, 0, 0, 0.7),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+    .screw::before,
+    .screw::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 2px;
+      margin: -1px 0 0 -4px;
+      background: #3d3d39;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+      transform: rotate(var(--angle, 20deg));
+    }
+    .screw::after {
+      transform: rotate(calc(var(--angle, 20deg) + 90deg));
+    }
+    .screw.tl {
+      top: 9px;
+      left: 9px;
+      --angle: 20deg;
+    }
+    .screw.tr {
+      top: 9px;
+      right: 9px;
+      --angle: 65deg;
+    }
+    .screw.bl {
+      bottom: 9px;
+      left: 9px;
+      --angle: 40deg;
+    }
+    .screw.br {
+      bottom: 9px;
+      right: 9px;
+      --angle: 5deg;
+    }
+
+    /* Brushed aluminium name strip */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 2.4rem 0.85rem;
+      color: #26251f;
+      background:
+        var(--brushed),
+        linear-gradient(
+          90deg,
+          #9d9d97 0%,
+          #d9d9d3 22%,
+          #b5b5af 45%,
+          #e4e4de 68%,
+          #c2c2bc 85%,
+          #9a9a94 100%
+        );
+      background-size: 600px 120px, auto;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+        0 2px 3px rgba(0, 0, 0, 0.55);
+      position: relative;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: clamp(1.3rem, 4vw, 1.85rem);
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: -0.015em;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.6),
+        0 -1px 0 rgba(0, 0, 0, 0.15);
+    }
+    .model {
+      padding: 0.12rem 0.5rem 0.1rem;
+      font-style: normal;
+      font-size: 0.68em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #f3ecd8;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
+      background: linear-gradient(180deg, #d24a35, #a8301f);
+      border-radius: 3px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    .tagline {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    /* Silkscreened panel text */
+    .label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0.92;
+      text-shadow: 0 0 0.6px rgba(232, 225, 204, 0.6);
+    }
+    .label.dim {
+      opacity: 0.5;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: none;
+    }
+
+    /*
+     * Controls on the first grid row, all labels on the second, so the labels share one baseline.
+     * Display, tap button and knob all take --panel-height.
+     */
+    .controls {
+      --panel-height: 104px;
+      --knob-size: var(--panel-height);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto auto;
+      grid-template-rows: var(--panel-height) auto;
+      justify-items: center;
+      gap: 0.75rem 1.5rem;
+      padding: 1.9rem 2.4rem 1.6rem;
+    }
+    .controls tempo-display {
+      justify-self: stretch;
+    }
+    .led-cell {
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+    }
+
+    /* Beat LED: domed lens in a chrome bezel */
+    .bezel {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: conic-gradient(from 200deg, #6d6d68, #f2f2ee, #8b8b86, #e0e0db, #6d6d68, #cfcfca, #6d6d68);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.7),
+        0 3px 5px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+    .led {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 55%, #4d1a12, #240907 75%);
+      box-shadow:
+        0 0 0 2px #121211,
+        inset 0 2px 4px rgba(0, 0, 0, 0.8);
+      transition:
+        background 0.15s,
+        box-shadow 0.15s;
+    }
+    .led::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      width: 9px;
+      height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 70%);
+    }
+    .led.accent,
+    .led.beat {
+      transition: none;
+    }
+    .led.accent {
+      background: radial-gradient(circle at 50% 55%, #ffe1d8 0%, #ff4a2a 35%, #c41a08 80%);
+      box-shadow:
+        0 0 0 2px #121211,
+        0 0 16px 6px rgba(255, 50, 20, 0.6),
+        0 0 40px 10px rgba(255, 50, 20, 0.25);
+    }
+    .led.beat {
+      background: radial-gradient(circle at 50% 55%, #e6ffe6 0%, #45f06a 35%, #0f9c2c 80%);
+      box-shadow:
+        0 0 0 2px #121211,
+        0 0 16px 6px rgba(50, 230, 90, 0.5),
+        0 0 40px 10px rgba(50, 230, 90, 0.2);
+    }
+
+    /* Plastic keycaps seated in dark panel cut-outs */
+    button {
+      font: inherit;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: 4px;
+    }
+    .key {
+      --cap-top: #f2ead4;
+      --cap-mid: #e2d8bf;
+      --cap-low: #c6bb9f;
+      position: relative;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background:
+        var(--grain),
+        linear-gradient(180deg, var(--cap-top) 0%, var(--cap-mid) 55%, var(--cap-low) 100%);
+      background-size: 120px 120px, auto;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.75),
+        inset 0 -5px 0 rgba(0, 0, 0, 0.16),
+        inset 0 -6px 3px rgba(0, 0, 0, 0.08),
+        0 0 0 2px #0e0e0d,
+        0 0 0 3px rgba(255, 255, 255, 0.05),
+        0 5px 7px 1px rgba(0, 0, 0, 0.55);
+      transition:
+        transform 0.05s,
+        box-shadow 0.05s;
+    }
+    /* Slightly dished top face */
+    .key::before {
+      content: '';
+      position: absolute;
+      inset: 5px 5px 9px;
+      border-radius: 3px;
+      background: radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, 0.35), transparent 70%);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+      pointer-events: none;
+    }
+    .key:active {
+      transform: translateY(2px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -3px 0 rgba(0, 0, 0, 0.16),
+        0 0 0 2px #0e0e0d,
+        0 0 0 3px rgba(255, 255, 255, 0.05),
+        0 2px 3px rgba(0, 0, 0, 0.6);
+    }
+    .key .key-led {
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      margin-left: -5px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #6e2016, #360b06);
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.35),
+        0 1px 0 1.5px rgba(255, 255, 255, 0.35);
+      z-index: 1;
+    }
+    .key .key-led.on {
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #ffb39f, #ff3a1c 55%, #c01a06);
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.3),
+        0 0 7px 3px rgba(255, 58, 28, 0.6);
+    }
+
+    .tap {
+      --cap-top: #bdbab2;
+      --cap-mid: #a19e96;
+      --cap-low: #84817a;
+      width: 96px;
+    }
+
+    /* Bottom section: start/stop sits in the first column of the same grid as the beat buttons. */
+    .sequencer {
+      display: grid;
+      grid-template-columns: 92px repeat(8, minmax(0, 1fr));
+      gap: 0.55rem 0.6rem;
+      padding: 1.4rem 2.4rem 1.6rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.65);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.2));
+    }
+    .sequencer .title {
+      grid-area: 1 / 2 / 2 / -1;
+      align-self: end;
+      text-align: left;
+    }
+    .start-label {
+      grid-area: 1 / 1;
+      align-self: end;
+      color: #e0533d;
+      white-space: normal;
+    }
+    .start,
+    .step {
+      height: 60px;
+    }
+    .start {
+      grid-area: 3 / 1;
+      margin-right: 0.8rem;
+    }
+    .beat-buttons {
+      display: contents;
+    }
+    .band {
+      height: 6px;
+      border-radius: 1px;
+      background-image: var(--grain);
+      background-size: 120px 120px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+    }
+    .num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0.92;
+    }
+    .band[data-group='0'] {
+      background-color: var(--red);
+    }
+    .band[data-group='1'] {
+      background-color: var(--orange);
+    }
+    .band[data-group='2'] {
+      background-color: var(--yellow);
+    }
+    .band[data-group='3'] {
+      background-color: var(--white);
+    }
+
+    footer {
+      padding: 0.7rem 2.4rem 0.8rem;
+      font-size: 0.68rem;
+      text-align: center;
+      color: rgba(232, 225, 204, 0.45);
+      border-top: 1px solid rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    kbd {
+      font: inherit;
+      font-weight: 700;
+      padding: 0 0.3em;
+      border: 1px solid rgba(232, 225, 204, 0.35);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .cheek {
+        flex-basis: 12px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        padding: 0.9rem 1.6rem 0.75rem;
+      }
+      /* Two columns: display + tap, then knob + LED, each with its label underneath. */
+      .controls {
+        --panel-height: 84px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: var(--panel-height) auto var(--panel-height) auto;
+        gap: 0.6rem 0.75rem;
+        padding: 1.25rem 1rem;
+      }
+      .controls tempo-knob {
+        grid-area: 3 / 1;
+      }
+      .controls .led-cell {
+        grid-area: 3 / 2;
+      }
+      .controls .knob-label {
+        grid-area: 4 / 1;
+      }
+      .controls .led-label {
+        grid-area: 4 / 2;
+      }
+      .tap {
+        width: 72px;
+      }
+      .sequencer {
+        grid-template-columns: 60px repeat(8, minmax(0, 1fr));
+        gap: 0.45rem 0.35rem;
+        padding: 1.25rem 1rem;
+      }
+      .start {
+        margin-right: 0.4rem;
+      }
+      .start,
+      .step {
+        height: 52px;
+      }
+      footer {
+        padding: 0.75rem 1.6rem 1rem;
+      }
+    }
+  `;C([w()],m.prototype,"bpm",2);C([w()],m.prototype,"beatsPerBar",2);C([w()],m.prototype,"playing",2);C([w()],m.prototype,"led",2);C([w()],m.prototype,"currentBeat",2);C([w()],m.prototype,"tapFlash",2);m=C([st("metronome-app")],m);
+</script>
+  </head>
+  <body>
+    <metronome-app></metronome-app>
+  </body>
+</html>
