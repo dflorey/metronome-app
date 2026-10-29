@@ -1,7 +1,7 @@
 // Service worker: keeps the installed app working offline. Requests are answered from the cache
 // straight away and refreshed from the network in the background, so a new deploy shows up on the
 // next launch. Bump CACHE to drop everything cached by an older version.
-const CACHE = 'metronome-v1';
+const CACHE = 'metronome-v2';
 const SHELL = ['./', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (event) => {
