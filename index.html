@@ -2,22 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Metronome FS-1: a vintage drum-machine style metronome with tap tempo and selectable beats per bar." />
     <meta name="theme-color" content="#1a1816" />
     <title>Metronome FS-1</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff2a14'/%3E%3C/svg%3E" />
+    <!-- Installable app: manifest for Android/Chrome, meta tags and touch icon for iOS home screens -->
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Metronome" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
     
     <style>
       body {
         margin: 0;
         min-height: 100vh;
+        min-height: 100dvh;
         display: grid;
         grid-template-columns: minmax(0, 1fr);
         place-items: center;
-        padding: 24px 16px;
+        /* Keep clear of notches, rounded corners and the home indicator. */
+        padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
         box-sizing: border-box;
         background: transparent;
+      }
+      /* Installed as an app there is no host page behind it, so give it a dark backdrop. */
+      @media (display-mode: standalone) {
+        html {
+          background: #1a1816;
+        }
+        body {
+          overscroll-behavior: none;
+        }
       }
       metronome-app:not(:defined) {
         display: none;
@@ -27,45 +47,45 @@
  * @license
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const X=globalThis,dt=X.ShadowRoot&&(X.ShadyCSS===void 0||X.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,ut=Symbol(),mt=new WeakMap;let Ot=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==ut)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(dt&&t===void 0){const i=e!==void 0&&e.length===1;i&&(t=mt.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&mt.set(e,t))}return t}toString(){return this.cssText}};const qt=s=>new Ot(typeof s=="string"?s:s+"",void 0,ut),tt=(s,...t)=>{const e=s.length===1?s[0]:t.reduce((i,r,a)=>i+(n=>{if(n._$cssResult$===!0)return n.cssText;if(typeof n=="number")return n;throw Error("Value passed to 'css' function must be a 'css' function result: "+n+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+s[a+1],s[0]);return new Ot(e,s,ut)},Vt=(s,t)=>{if(dt)s.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(const e of t){const i=document.createElement("style"),r=X.litNonce;r!==void 0&&i.setAttribute("nonce",r),i.textContent=e.cssText,s.appendChild(i)}},ft=dt?s=>s:s=>s instanceof CSSStyleSheet?(t=>{let e="";for(const i of t.cssRules)e+=i.cssText;return qt(e)})(s):s;/**
+ */const Z=globalThis,ue=Z.ShadowRoot&&(Z.ShadyCSS===void 0||Z.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,ge=Symbol(),fe=new WeakMap;let De=class{constructor(e,t,i){if(this._$cssResult$=!0,i!==ge)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o;const t=this.t;if(ue&&e===void 0){const i=t!==void 0&&t.length===1;i&&(e=fe.get(t)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),i&&fe.set(t,e))}return e}toString(){return this.cssText}};const Ve=s=>new De(typeof s=="string"?s:s+"",void 0,ge),te=(s,...e)=>{const t=s.length===1?s[0]:e.reduce((i,a,r)=>i+(n=>{if(n._$cssResult$===!0)return n.cssText;if(typeof n=="number")return n;throw Error("Value passed to 'css' function must be a 'css' function result: "+n+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(a)+s[r+1],s[0]);return new De(t,s,ge)},Fe=(s,e)=>{if(ue)s.adoptedStyleSheets=e.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(const t of e){const i=document.createElement("style"),a=Z.litNonce;a!==void 0&&i.setAttribute("nonce",a),i.textContent=t.cssText,s.appendChild(i)}},xe=ue?s=>s:s=>s instanceof CSSStyleSheet?(e=>{let t="";for(const i of e.cssRules)t+=i.cssText;return Ve(t)})(s):s;/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{is:Ft,defineProperty:Gt,getOwnPropertyDescriptor:Wt,getOwnPropertyNames:Xt,getOwnPropertySymbols:Yt,getPrototypeOf:Zt}=Object,$=globalThis,xt=$.trustedTypes,Jt=xt?xt.emptyScript:"",rt=$.reactiveElementPolyfillSupport,I=(s,t)=>s,Y={toAttribute(s,t){switch(t){case Boolean:s=s?Jt:null;break;case Object:case Array:s=s==null?s:JSON.stringify(s)}return s},fromAttribute(s,t){let e=s;switch(t){case Boolean:e=s!==null;break;case Number:e=s===null?null:Number(s);break;case Object:case Array:try{e=JSON.parse(s)}catch{e=null}}return e}},gt=(s,t)=>!Ft(s,t),$t={attribute:!0,type:String,converter:Y,reflect:!1,useDefault:!1,hasChanged:gt};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),$.litPropertyMetadata??($.litPropertyMetadata=new WeakMap);let C=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??(this.l=[])).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=$t){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(t,i,e);r!==void 0&&Gt(this.prototype,t,r)}}static getPropertyDescriptor(t,e,i){const{get:r,set:a}=Wt(this.prototype,t)??{get(){return this[e]},set(n){this[e]=n}};return{get:r,set(n){const l=r==null?void 0:r.call(this);a==null||a.call(this,n),this.requestUpdate(t,l,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??$t}static _$Ei(){if(this.hasOwnProperty(I("elementProperties")))return;const t=Zt(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(I("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(I("properties"))){const e=this.properties,i=[...Xt(e),...Yt(e)];for(const r of i)this.createProperty(r,e[r])}const t=this[Symbol.metadata];if(t!==null){const e=litPropertyMetadata.get(t);if(e!==void 0)for(const[i,r]of e)this.elementProperties.set(i,r)}this._$Eh=new Map;for(const[e,i]of this.elementProperties){const r=this._$Eu(e,i);r!==void 0&&this._$Eh.set(r,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const i=new Set(t.flat(1/0).reverse());for(const r of i)e.unshift(ft(r))}else t!==void 0&&e.push(ft(t));return e}static _$Eu(t,e){const i=e.attribute;return i===!1?void 0:typeof i=="string"?i:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var t;this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),(t=this.constructor.l)==null||t.forEach(e=>e(this))}addController(t){var e;(this._$EO??(this._$EO=new Set)).add(t),this.renderRoot!==void 0&&this.isConnected&&((e=t.hostConnected)==null||e.call(t))}removeController(t){var e;(e=this._$EO)==null||e.delete(t)}_$E_(){const t=new Map,e=this.constructor.elementProperties;for(const i of e.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return Vt(t,this.constructor.elementStyles),t}connectedCallback(){var t;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostConnected)==null?void 0:i.call(e)})}enableUpdating(t){}disconnectedCallback(){var t;(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostDisconnected)==null?void 0:i.call(e)})}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$ET(t,e){var a;const i=this.constructor.elementProperties.get(t),r=this.constructor._$Eu(t,i);if(r!==void 0&&i.reflect===!0){const n=(((a=i.converter)==null?void 0:a.toAttribute)!==void 0?i.converter:Y).toAttribute(e,i.type);this._$Em=t,n==null?this.removeAttribute(r):this.setAttribute(r,n),this._$Em=null}}_$AK(t,e){var a,n;const i=this.constructor,r=i._$Eh.get(t);if(r!==void 0&&this._$Em!==r){const l=i.getPropertyOptions(r),o=typeof l.converter=="function"?{fromAttribute:l.converter}:((a=l.converter)==null?void 0:a.fromAttribute)!==void 0?l.converter:Y;this._$Em=r;const p=o.fromAttribute(e,l.type);this[r]=p??((n=this._$Ej)==null?void 0:n.get(r))??p,this._$Em=null}}requestUpdate(t,e,i,r=!1,a){var n;if(t!==void 0){const l=this.constructor;if(r===!1&&(a=this[t]),i??(i=l.getPropertyOptions(t)),!((i.hasChanged??gt)(a,e)||i.useDefault&&i.reflect&&a===((n=this._$Ej)==null?void 0:n.get(t))&&!this.hasAttribute(l._$Eu(t,i))))return;this.C(t,e,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(t,e,{useDefault:i,reflect:r,wrapped:a},n){i&&!(this._$Ej??(this._$Ej=new Map)).has(t)&&(this._$Ej.set(t,n??e??this[t]),a!==!0||n!==void 0)||(this._$AL.has(t)||(this.hasUpdated||i||(e=void 0),this._$AL.set(t,e)),r===!0&&this._$Em!==t&&(this._$Eq??(this._$Eq=new Set)).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}const t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[a,n]of this._$Ep)this[a]=n;this._$Ep=void 0}const r=this.constructor.elementProperties;if(r.size>0)for(const[a,n]of r){const{wrapped:l}=n,o=this[a];l!==!0||this._$AL.has(a)||o===void 0||this.C(a,void 0,n,o)}}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),(i=this._$EO)==null||i.forEach(r=>{var a;return(a=r.hostUpdate)==null?void 0:a.call(r)}),this.update(e)):this._$EM()}catch(r){throw t=!1,this._$EM(),r}t&&this._$AE(e)}willUpdate(t){}_$AE(t){var e;(e=this._$EO)==null||e.forEach(i=>{var r;return(r=i.hostUpdated)==null?void 0:r.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&(this._$Eq=this._$Eq.forEach(e=>this._$ET(e,this[e]))),this._$EM()}updated(t){}firstUpdated(t){}};C.elementStyles=[],C.shadowRootOptions={mode:"open"},C[I("elementProperties")]=new Map,C[I("finalized")]=new Map,rt==null||rt({ReactiveElement:C}),($.reactiveElementVersions??($.reactiveElementVersions=[])).push("2.1.2");/**
+ */const{is:We,defineProperty:Ge,getOwnPropertyDescriptor:Xe,getOwnPropertyNames:Ze,getOwnPropertySymbols:Ye,getPrototypeOf:Je}=Object,$=globalThis,ve=$.trustedTypes,Qe=ve?ve.emptyScript:"",re=$.reactiveElementPolyfillSupport,I=(s,e)=>s,Y={toAttribute(s,e){switch(e){case Boolean:s=s?Qe:null;break;case Object:case Array:s=s==null?s:JSON.stringify(s)}return s},fromAttribute(s,e){let t=s;switch(e){case Boolean:t=s!==null;break;case Number:t=s===null?null:Number(s);break;case Object:case Array:try{t=JSON.parse(s)}catch{t=null}}return t}},be=(s,e)=>!We(s,e),ye={attribute:!0,type:String,converter:Y,reflect:!1,useDefault:!1,hasChanged:be};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),$.litPropertyMetadata??($.litPropertyMetadata=new WeakMap);let T=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??(this.l=[])).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ye){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){const i=Symbol(),a=this.getPropertyDescriptor(e,i,t);a!==void 0&&Ge(this.prototype,e,a)}}static getPropertyDescriptor(e,t,i){const{get:a,set:r}=Xe(this.prototype,e)??{get(){return this[t]},set(n){this[t]=n}};return{get:a,set(n){const l=a==null?void 0:a.call(this);r==null||r.call(this,n),this.requestUpdate(e,l,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ye}static _$Ei(){if(this.hasOwnProperty(I("elementProperties")))return;const e=Je(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(I("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(I("properties"))){const t=this.properties,i=[...Ze(t),...Ye(t)];for(const a of i)this.createProperty(a,t[a])}const e=this[Symbol.metadata];if(e!==null){const t=litPropertyMetadata.get(e);if(t!==void 0)for(const[i,a]of t)this.elementProperties.set(i,a)}this._$Eh=new Map;for(const[t,i]of this.elementProperties){const a=this._$Eu(t,i);a!==void 0&&this._$Eh.set(a,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){const t=[];if(Array.isArray(e)){const i=new Set(e.flat(1/0).reverse());for(const a of i)t.unshift(xe(a))}else e!==void 0&&t.push(xe(e));return t}static _$Eu(e,t){const i=t.attribute;return i===!1?void 0:typeof i=="string"?i:typeof e=="string"?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var e;this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),(e=this.constructor.l)==null||e.forEach(t=>t(this))}addController(e){var t;(this._$EO??(this._$EO=new Set)).add(e),this.renderRoot!==void 0&&this.isConnected&&((t=e.hostConnected)==null||t.call(e))}removeController(e){var t;(t=this._$EO)==null||t.delete(e)}_$E_(){const e=new Map,t=this.constructor.elementProperties;for(const i of t.keys())this.hasOwnProperty(i)&&(e.set(i,this[i]),delete this[i]);e.size>0&&(this._$Ep=e)}createRenderRoot(){const e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return Fe(e,this.constructor.elementStyles),e}connectedCallback(){var e;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(e=this._$EO)==null||e.forEach(t=>{var i;return(i=t.hostConnected)==null?void 0:i.call(t)})}enableUpdating(e){}disconnectedCallback(){var e;(e=this._$EO)==null||e.forEach(t=>{var i;return(i=t.hostDisconnected)==null?void 0:i.call(t)})}attributeChangedCallback(e,t,i){this._$AK(e,i)}_$ET(e,t){var r;const i=this.constructor.elementProperties.get(e),a=this.constructor._$Eu(e,i);if(a!==void 0&&i.reflect===!0){const n=(((r=i.converter)==null?void 0:r.toAttribute)!==void 0?i.converter:Y).toAttribute(t,i.type);this._$Em=e,n==null?this.removeAttribute(a):this.setAttribute(a,n),this._$Em=null}}_$AK(e,t){var r,n;const i=this.constructor,a=i._$Eh.get(e);if(a!==void 0&&this._$Em!==a){const l=i.getPropertyOptions(a),o=typeof l.converter=="function"?{fromAttribute:l.converter}:((r=l.converter)==null?void 0:r.fromAttribute)!==void 0?l.converter:Y;this._$Em=a;const p=o.fromAttribute(t,l.type);this[a]=p??((n=this._$Ej)==null?void 0:n.get(a))??p,this._$Em=null}}requestUpdate(e,t,i,a=!1,r){var n;if(e!==void 0){const l=this.constructor;if(a===!1&&(r=this[e]),i??(i=l.getPropertyOptions(e)),!((i.hasChanged??be)(r,t)||i.useDefault&&i.reflect&&r===((n=this._$Ej)==null?void 0:n.get(e))&&!this.hasAttribute(l._$Eu(e,i))))return;this.C(e,t,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(e,t,{useDefault:i,reflect:a,wrapped:r},n){i&&!(this._$Ej??(this._$Ej=new Map)).has(e)&&(this._$Ej.set(e,n??t??this[e]),r!==!0||n!==void 0)||(this._$AL.has(e)||(this.hasUpdated||i||(t=void 0),this._$AL.set(e,t)),a===!0&&this._$Em!==e&&(this._$Eq??(this._$Eq=new Set)).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(t){Promise.reject(t)}const e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[r,n]of this._$Ep)this[r]=n;this._$Ep=void 0}const a=this.constructor.elementProperties;if(a.size>0)for(const[r,n]of a){const{wrapped:l}=n,o=this[r];l!==!0||this._$AL.has(r)||o===void 0||this.C(r,void 0,n,o)}}let e=!1;const t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),(i=this._$EO)==null||i.forEach(a=>{var r;return(r=a.hostUpdate)==null?void 0:r.call(a)}),this.update(t)):this._$EM()}catch(a){throw e=!1,this._$EM(),a}e&&this._$AE(t)}willUpdate(e){}_$AE(e){var t;(t=this._$EO)==null||t.forEach(i=>{var a;return(a=i.hostUpdated)==null?void 0:a.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&(this._$Eq=this._$Eq.forEach(t=>this._$ET(t,this[t]))),this._$EM()}updated(e){}firstUpdated(e){}};T.elementStyles=[],T.shadowRootOptions={mode:"open"},T[I("elementProperties")]=new Map,T[I("finalized")]=new Map,re==null||re({ReactiveElement:T}),($.reactiveElementVersions??($.reactiveElementVersions=[])).push("2.1.2");/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const j=globalThis,vt=s=>s,Z=j.trustedTypes,yt=Z?Z.createPolicy("lit-html",{createHTML:s=>s}):void 0,Bt="$lit$",x=`lit$${Math.random().toFixed(9).slice(2)}$`,Dt="?"+x,Qt=`<${Dt}>`,P=document,z=()=>P.createComment(""),L=s=>s===null||typeof s!="object"&&typeof s!="function",bt=Array.isArray,te=s=>bt(s)||typeof(s==null?void 0:s[Symbol.iterator])=="function",at=`[ 	
-\f\r]`,U=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,wt=/-->/g,_t=/>/g,A=RegExp(`>|${at}(?:([^\\s"'>=/]+)(${at}*=${at}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`,"g"),At=/'/g,Et=/"/g,Ut=/^(?:script|style|textarea|title)$/i,Nt=s=>(t,...e)=>({_$litType$:s,strings:t,values:e}),T=Nt(1),Ht=Nt(2),M=Symbol.for("lit-noChange"),c=Symbol.for("lit-nothing"),kt=new WeakMap,E=P.createTreeWalker(P,129);function Rt(s,t){if(!bt(s)||!s.hasOwnProperty("raw"))throw Error("invalid template strings array");return yt!==void 0?yt.createHTML(t):t}const ee=(s,t)=>{const e=s.length-1,i=[];let r,a=t===2?"<svg>":t===3?"<math>":"",n=U;for(let l=0;l<e;l++){const o=s[l];let p,d,h=-1,b=0;for(;b<o.length&&(n.lastIndex=b,d=n.exec(o),d!==null);)b=n.lastIndex,n===U?d[1]==="!--"?n=wt:d[1]!==void 0?n=_t:d[2]!==void 0?(Ut.test(d[2])&&(r=RegExp("</"+d[2],"g")),n=A):d[3]!==void 0&&(n=A):n===A?d[0]===">"?(n=r??U,h=-1):d[1]===void 0?h=-2:(h=n.lastIndex-d[2].length,p=d[1],n=d[3]===void 0?A:d[3]==='"'?Et:At):n===Et||n===At?n=A:n===wt||n===_t?n=U:(n=A,r=void 0);const f=n===A&&s[l+1].startsWith("/>")?" ":"";a+=n===U?o+Qt:h>=0?(i.push(p),o.slice(0,h)+Bt+o.slice(h)+x+f):o+x+(h===-2?l:f)}return[Rt(s,a+(s[e]||"<?>")+(t===2?"</svg>":t===3?"</math>":"")),i]};class K{constructor({strings:t,_$litType$:e},i){let r;this.parts=[];let a=0,n=0;const l=t.length-1,o=this.parts,[p,d]=ee(t,e);if(this.el=K.createElement(p,i),E.currentNode=this.el.content,e===2||e===3){const h=this.el.content.firstChild;h.replaceWith(...h.childNodes)}for(;(r=E.nextNode())!==null&&o.length<l;){if(r.nodeType===1){if(r.hasAttributes())for(const h of r.getAttributeNames())if(h.endsWith(Bt)){const b=d[n++],f=r.getAttribute(h).split(x),V=/([.?@])?(.*)/.exec(b);o.push({type:1,index:a,name:V[2],strings:f,ctor:V[1]==="."?ie:V[1]==="?"?re:V[1]==="@"?ae:et}),r.removeAttribute(h)}else h.startsWith(x)&&(o.push({type:6,index:a}),r.removeAttribute(h));if(Ut.test(r.tagName)){const h=r.textContent.split(x),b=h.length-1;if(b>0){r.textContent=Z?Z.emptyScript:"";for(let f=0;f<b;f++)r.append(h[f],z()),E.nextNode(),o.push({type:2,index:++a});r.append(h[b],z())}}}else if(r.nodeType===8)if(r.data===Dt)o.push({type:2,index:a});else{let h=-1;for(;(h=r.data.indexOf(x,h+1))!==-1;)o.push({type:7,index:a}),h+=x.length-1}a++}}static createElement(t,e){const i=P.createElement("template");return i.innerHTML=t,i}}function O(s,t,e=s,i){var n,l;if(t===M)return t;let r=i!==void 0?(n=e._$Co)==null?void 0:n[i]:e._$Cl;const a=L(t)?void 0:t._$litDirective$;return(r==null?void 0:r.constructor)!==a&&((l=r==null?void 0:r._$AO)==null||l.call(r,!1),a===void 0?r=void 0:(r=new a(s),r._$AT(s,e,i)),i!==void 0?(e._$Co??(e._$Co=[]))[i]=r:e._$Cl=r),r!==void 0&&(t=O(s,r._$AS(s,t.values),r,i)),t}let se=class{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:i}=this._$AD,r=((t==null?void 0:t.creationScope)??P).importNode(e,!0);E.currentNode=r;let a=E.nextNode(),n=0,l=0,o=i[0];for(;o!==void 0;){if(n===o.index){let p;o.type===2?p=new q(a,a.nextSibling,this,t):o.type===1?p=new o.ctor(a,o.name,o.strings,this,t):o.type===6&&(p=new ne(a,this,t)),this._$AV.push(p),o=i[++l]}n!==(o==null?void 0:o.index)&&(a=E.nextNode(),n++)}return E.currentNode=P,r}p(t){let e=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}};class q{get _$AU(){var t;return((t=this._$AM)==null?void 0:t._$AU)??this._$Cv}constructor(t,e,i,r){this.type=2,this._$AH=c,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=r,this._$Cv=(r==null?void 0:r.isConnected)??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return e!==void 0&&(t==null?void 0:t.nodeType)===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=O(this,t,e),L(t)?t===c||t==null||t===""?(this._$AH!==c&&this._$AR(),this._$AH=c):t!==this._$AH&&t!==M&&this._(t):t._$litType$!==void 0?this.$(t):t.nodeType!==void 0?this.T(t):te(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==c&&L(this._$AH)?this._$AA.nextSibling.data=t:this.T(P.createTextNode(t)),this._$AH=t}$(t){var a;const{values:e,_$litType$:i}=t,r=typeof i=="number"?this._$AC(t):(i.el===void 0&&(i.el=K.createElement(Rt(i.h,i.h[0]),this.options)),i);if(((a=this._$AH)==null?void 0:a._$AD)===r)this._$AH.p(e);else{const n=new se(r,this),l=n.u(this.options);n.p(e),this.T(l),this._$AH=n}}_$AC(t){let e=kt.get(t.strings);return e===void 0&&kt.set(t.strings,e=new K(t)),e}k(t){bt(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let i,r=0;for(const a of t)r===e.length?e.push(i=new q(this.O(z()),this.O(z()),this,this.options)):i=e[r],i._$AI(a),r++;r<e.length&&(this._$AR(i&&i._$AB.nextSibling,r),e.length=r)}_$AR(t=this._$AA.nextSibling,e){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,e);t!==this._$AB;){const r=vt(t).nextSibling;vt(t).remove(),t=r}}setConnected(t){var e;this._$AM===void 0&&(this._$Cv=t,(e=this._$AP)==null||e.call(this,t))}}let et=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,r,a){this.type=1,this._$AH=c,this._$AN=void 0,this.element=t,this.name=e,this._$AM=r,this.options=a,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=c}_$AI(t,e=this,i,r){const a=this.strings;let n=!1;if(a===void 0)t=O(this,t,e,0),n=!L(t)||t!==this._$AH&&t!==M,n&&(this._$AH=t);else{const l=t;let o,p;for(t=a[0],o=0;o<a.length-1;o++)p=O(this,l[i+o],e,o),p===M&&(p=this._$AH[o]),n||(n=!L(p)||p!==this._$AH[o]),p===c?t=c:t!==c&&(t+=(p??"")+a[o+1]),this._$AH[o]=p}n&&!r&&this.j(t)}j(t){t===c?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}};class ie extends et{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===c?void 0:t}}let re=class extends et{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==c)}};class ae extends et{constructor(t,e,i,r,a){super(t,e,i,r,a),this.type=5}_$AI(t,e=this){if((t=O(this,t,e,0)??c)===M)return;const i=this._$AH,r=t===c&&i!==c||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,a=t!==c&&(i===c||r);r&&this.element.removeEventListener(this.name,this,i),a&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var e;typeof this._$AH=="function"?this._$AH.call(((e=this.options)==null?void 0:e.host)??this.element,t):this._$AH.handleEvent(t)}}class ne{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){O(this,t)}}const nt=j.litHtmlPolyfillSupport;nt==null||nt(K,q),(j.litHtmlVersions??(j.litHtmlVersions=[])).push("3.3.3");const oe=(s,t,e)=>{const i=(e==null?void 0:e.renderBefore)??t;let r=i._$litPart$;if(r===void 0){const a=(e==null?void 0:e.renderBefore)??null;i._$litPart$=r=new q(t.insertBefore(z(),a),a,void 0,e??{})}return r._$AI(s),r};/**
+ */const R=globalThis,$e=s=>s,J=R.trustedTypes,we=J?J.createPolicy("lit-html",{createHTML:s=>s}):void 0,Be="$lit$",y=`lit$${Math.random().toFixed(9).slice(2)}$`,Ne="?"+y,et=`<${Ne}>`,S=document,j=()=>S.createComment(""),z=s=>s===null||typeof s!="object"&&typeof s!="function",me=Array.isArray,tt=s=>me(s)||typeof(s==null?void 0:s[Symbol.iterator])=="function",ne=`[ 	
+\f\r]`,N=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_e=/-->/g,ke=/>/g,A=RegExp(`>|${ne}(?:([^\\s"'>=/]+)(${ne}*=${ne}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),Ae=/'/g,Ee=/"/g,Ue=/^(?:script|style|textarea|title)$/i,Le=s=>(e,...t)=>({_$litType$:s,strings:e,values:t}),E=Le(1),He=Le(2),M=Symbol.for("lit-noChange"),c=Symbol.for("lit-nothing"),Ce=new WeakMap,C=S.createTreeWalker(S,129);function Ie(s,e){if(!me(s)||!s.hasOwnProperty("raw"))throw Error("invalid template strings array");return we!==void 0?we.createHTML(e):e}const st=(s,e)=>{const t=s.length-1,i=[];let a,r=e===2?"<svg>":e===3?"<math>":"",n=N;for(let l=0;l<t;l++){const o=s[l];let p,d,h=-1,f=0;for(;f<o.length&&(n.lastIndex=f,d=n.exec(o),d!==null);)f=n.lastIndex,n===N?d[1]==="!--"?n=_e:d[1]!==void 0?n=ke:d[2]!==void 0?(Ue.test(d[2])&&(a=RegExp("</"+d[2],"g")),n=A):d[3]!==void 0&&(n=A):n===A?d[0]===">"?(n=a??N,h=-1):d[1]===void 0?h=-2:(h=n.lastIndex-d[2].length,p=d[1],n=d[3]===void 0?A:d[3]==='"'?Ee:Ae):n===Ee||n===Ae?n=A:n===_e||n===ke?n=N:(n=A,a=void 0);const v=n===A&&s[l+1].startsWith("/>")?" ":"";r+=n===N?o+et:h>=0?(i.push(p),o.slice(0,h)+Be+o.slice(h)+y+v):o+y+(h===-2?l:v)}return[Ie(s,r+(s[t]||"<?>")+(e===2?"</svg>":e===3?"</math>":"")),i]};class K{constructor({strings:e,_$litType$:t},i){let a;this.parts=[];let r=0,n=0;const l=e.length-1,o=this.parts,[p,d]=st(e,t);if(this.el=K.createElement(p,i),C.currentNode=this.el.content,t===2||t===3){const h=this.el.content.firstChild;h.replaceWith(...h.childNodes)}for(;(a=C.nextNode())!==null&&o.length<l;){if(a.nodeType===1){if(a.hasAttributes())for(const h of a.getAttributeNames())if(h.endsWith(Be)){const f=d[n++],v=a.getAttribute(h).split(y),V=/([.?@])?(.*)/.exec(f);o.push({type:1,index:r,name:V[2],strings:v,ctor:V[1]==="."?at:V[1]==="?"?rt:V[1]==="@"?nt:se}),a.removeAttribute(h)}else h.startsWith(y)&&(o.push({type:6,index:r}),a.removeAttribute(h));if(Ue.test(a.tagName)){const h=a.textContent.split(y),f=h.length-1;if(f>0){a.textContent=J?J.emptyScript:"";for(let v=0;v<f;v++)a.append(h[v],j()),C.nextNode(),o.push({type:2,index:++r});a.append(h[f],j())}}}else if(a.nodeType===8)if(a.data===Ne)o.push({type:2,index:r});else{let h=-1;for(;(h=a.data.indexOf(y,h+1))!==-1;)o.push({type:7,index:r}),h+=y.length-1}r++}}static createElement(e,t){const i=S.createElement("template");return i.innerHTML=e,i}}function O(s,e,t=s,i){var n,l;if(e===M)return e;let a=i!==void 0?(n=t._$Co)==null?void 0:n[i]:t._$Cl;const r=z(e)?void 0:e._$litDirective$;return(a==null?void 0:a.constructor)!==r&&((l=a==null?void 0:a._$AO)==null||l.call(a,!1),r===void 0?a=void 0:(a=new r(s),a._$AT(s,t,i)),i!==void 0?(t._$Co??(t._$Co=[]))[i]=a:t._$Cl=a),a!==void 0&&(e=O(s,a._$AS(s,e.values),a,i)),e}let it=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){const{el:{content:t},parts:i}=this._$AD,a=((e==null?void 0:e.creationScope)??S).importNode(t,!0);C.currentNode=a;let r=C.nextNode(),n=0,l=0,o=i[0];for(;o!==void 0;){if(n===o.index){let p;o.type===2?p=new q(r,r.nextSibling,this,e):o.type===1?p=new o.ctor(r,o.name,o.strings,this,e):o.type===6&&(p=new ot(r,this,e)),this._$AV.push(p),o=i[++l]}n!==(o==null?void 0:o.index)&&(r=C.nextNode(),n++)}return C.currentNode=S,a}p(e){let t=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(e,i,t),t+=i.strings.length-2):i._$AI(e[t])),t++}};class q{get _$AU(){var e;return((e=this._$AM)==null?void 0:e._$AU)??this._$Cv}constructor(e,t,i,a){this.type=2,this._$AH=c,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=i,this.options=a,this._$Cv=(a==null?void 0:a.isConnected)??!0}get parentNode(){let e=this._$AA.parentNode;const t=this._$AM;return t!==void 0&&(e==null?void 0:e.nodeType)===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=O(this,e,t),z(e)?e===c||e==null||e===""?(this._$AH!==c&&this._$AR(),this._$AH=c):e!==this._$AH&&e!==M&&this._(e):e._$litType$!==void 0?this.$(e):e.nodeType!==void 0?this.T(e):tt(e)?this.k(e):this._(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==c&&z(this._$AH)?this._$AA.nextSibling.data=e:this.T(S.createTextNode(e)),this._$AH=e}$(e){var r;const{values:t,_$litType$:i}=e,a=typeof i=="number"?this._$AC(e):(i.el===void 0&&(i.el=K.createElement(Ie(i.h,i.h[0]),this.options)),i);if(((r=this._$AH)==null?void 0:r._$AD)===a)this._$AH.p(t);else{const n=new it(a,this),l=n.u(this.options);n.p(t),this.T(l),this._$AH=n}}_$AC(e){let t=Ce.get(e.strings);return t===void 0&&Ce.set(e.strings,t=new K(e)),t}k(e){me(this._$AH)||(this._$AH=[],this._$AR());const t=this._$AH;let i,a=0;for(const r of e)a===t.length?t.push(i=new q(this.O(j()),this.O(j()),this,this.options)):i=t[a],i._$AI(r),a++;a<t.length&&(this._$AR(i&&i._$AB.nextSibling,a),t.length=a)}_$AR(e=this._$AA.nextSibling,t){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,t);e!==this._$AB;){const a=$e(e).nextSibling;$e(e).remove(),e=a}}setConnected(e){var t;this._$AM===void 0&&(this._$Cv=e,(t=this._$AP)==null||t.call(this,e))}}let se=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,i,a,r){this.type=1,this._$AH=c,this._$AN=void 0,this.element=e,this.name=t,this._$AM=a,this.options=r,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=c}_$AI(e,t=this,i,a){const r=this.strings;let n=!1;if(r===void 0)e=O(this,e,t,0),n=!z(e)||e!==this._$AH&&e!==M,n&&(this._$AH=e);else{const l=e;let o,p;for(e=r[0],o=0;o<r.length-1;o++)p=O(this,l[i+o],t,o),p===M&&(p=this._$AH[o]),n||(n=!z(p)||p!==this._$AH[o]),p===c?e=c:e!==c&&(e+=(p??"")+r[o+1]),this._$AH[o]=p}n&&!a&&this.j(e)}j(e){e===c?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??"")}};class at extends se{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===c?void 0:e}}let rt=class extends se{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==c)}};class nt extends se{constructor(e,t,i,a,r){super(e,t,i,a,r),this.type=5}_$AI(e,t=this){if((e=O(this,e,t,0)??c)===M)return;const i=this._$AH,a=e===c&&i!==c||e.capture!==i.capture||e.once!==i.once||e.passive!==i.passive,r=e!==c&&(i===c||a);a&&this.element.removeEventListener(this.name,this,i),r&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){var t;typeof this._$AH=="function"?this._$AH.call(((t=this.options)==null?void 0:t.host)??this.element,e):this._$AH.handleEvent(e)}}class ot{constructor(e,t,i){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(e){O(this,e)}}const oe=R.litHtmlPolyfillSupport;oe==null||oe(K,q),(R.litHtmlVersions??(R.litHtmlVersions=[])).push("3.3.3");const lt=(s,e,t)=>{const i=(t==null?void 0:t.renderBefore)??e;let a=i._$litPart$;if(a===void 0){const r=(t==null?void 0:t.renderBefore)??null;i._$litPart$=a=new q(e.insertBefore(j(),r),r,void 0,t??{})}return a._$AI(s),a};/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const k=globalThis;class v extends C{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var e;const t=super.createRenderRoot();return(e=this.renderOptions).renderBefore??(e.renderBefore=t.firstChild),t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=oe(e,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),(t=this._$Do)==null||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),(t=this._$Do)==null||t.setConnected(!1)}render(){return M}}var Mt;v._$litElement$=!0,v.finalized=!0,(Mt=k.litElementHydrateSupport)==null||Mt.call(k,{LitElement:v});const ot=k.litElementPolyfillSupport;ot==null||ot({LitElement:v});(k.litElementVersions??(k.litElementVersions=[])).push("4.2.2");/**
+ */const P=globalThis;class w extends T{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var t;const e=super.createRenderRoot();return(t=this.renderOptions).renderBefore??(t.renderBefore=e.firstChild),e}update(e){const t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=lt(t,this.renderRoot,this.renderOptions)}connectedCallback(){var e;super.connectedCallback(),(e=this._$Do)==null||e.setConnected(!0)}disconnectedCallback(){var e;super.disconnectedCallback(),(e=this._$Do)==null||e.setConnected(!1)}render(){return M}}var Oe;w._$litElement$=!0,w.finalized=!0,(Oe=P.litElementHydrateSupport)==null||Oe.call(P,{LitElement:w});const le=P.litElementPolyfillSupport;le==null||le({LitElement:w});(P.litElementVersions??(P.litElementVersions=[])).push("4.2.2");/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const st=s=>(t,e)=>{e!==void 0?e.addInitializer(()=>{customElements.define(s,t)}):customElements.define(s,t)};/**
+ */const ie=s=>(e,t)=>{t!==void 0?t.addInitializer(()=>{customElements.define(s,e)}):customElements.define(s,e)};/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const le={attribute:!0,type:String,converter:Y,reflect:!1,hasChanged:gt},he=(s=le,t,e)=>{const{kind:i,metadata:r}=e;let a=globalThis.litPropertyMetadata.get(r);if(a===void 0&&globalThis.litPropertyMetadata.set(r,a=new Map),i==="setter"&&((s=Object.create(s)).wrapped=!0),a.set(e.name,s),i==="accessor"){const{name:n}=e;return{set(l){const o=t.get.call(this);t.set.call(this,l),this.requestUpdate(n,o,s,!0,l)},init(l){return l!==void 0&&this.C(n,void 0,s,l),l}}}if(i==="setter"){const{name:n}=e;return function(l){const o=this[n];t.call(this,l),this.requestUpdate(n,o,s,!0,l)}}throw Error("Unsupported decorator location: "+i)};function y(s){return(t,e)=>typeof e=="object"?he(s,t,e):((i,r,a)=>{const n=r.hasOwnProperty(a);return r.constructor.createProperty(a,i),n?Object.getOwnPropertyDescriptor(r,a):void 0})(s,t,e)}/**
+ */const ht={attribute:!0,type:String,converter:Y,reflect:!1,hasChanged:be},pt=(s=ht,e,t)=>{const{kind:i,metadata:a}=t;let r=globalThis.litPropertyMetadata.get(a);if(r===void 0&&globalThis.litPropertyMetadata.set(a,r=new Map),i==="setter"&&((s=Object.create(s)).wrapped=!0),r.set(t.name,s),i==="accessor"){const{name:n}=t;return{set(l){const o=e.get.call(this);e.set.call(this,l),this.requestUpdate(n,o,s,!0,l)},init(l){return l!==void 0&&this.C(n,void 0,s,l),l}}}if(i==="setter"){const{name:n}=t;return function(l){const o=this[n];e.call(this,l),this.requestUpdate(n,o,s,!0,l)}}throw Error("Unsupported decorator location: "+i)};function _(s){return(e,t)=>typeof t=="object"?pt(s,e,t):((i,a,r)=>{const n=a.hasOwnProperty(r);return a.constructor.createProperty(r,i),n?Object.getOwnPropertyDescriptor(a,r):void 0})(s,e,t)}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function w(s){return y({...s,state:!0,attribute:!1})}/**
+ */function m(s){return _({...s,state:!0,attribute:!1})}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const Pt=(s,t,e)=>(e.configurable=!0,e.enumerable=!0,Reflect.decorate&&typeof t!="object"&&Object.defineProperty(s,t,e),e);/**
+ */const Pe=(s,e,t)=>(t.configurable=!0,t.enumerable=!0,Reflect.decorate&&typeof e!="object"&&Object.defineProperty(s,e,t),t);/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function It(s,t){return(e,i,r)=>{const a=n=>{var l;return((l=n.renderRoot)==null?void 0:l.querySelector(s))??null};if(t){const{get:n,set:l}=typeof i=="object"?e:r??(()=>{const o=Symbol();return{get(){return this[o]},set(p){this[o]=p}}})();return Pt(e,i,{get(){let o=n.call(this);return o===void 0&&(o=a(this),(o!==null||this.hasUpdated)&&l.call(this,o)),o}})}return Pt(e,i,{get(){return a(this)}})}}const pe=25,ce=.1,de=1600,ue=1100,ge=.9,be=.7,me=800,fe=.6;class xe{constructor(){this.bpm=120,this.beatsPerBar=4,this.nextTime=0,this.beat=0,this.pending=[],this.drain=()=>{var e;const t=this.ctx.currentTime;for(;this.pending.length&&this.pending[0].time<=t;)(e=this.onBeat)==null||e.call(this,this.pending.shift().beat);this.frameId=requestAnimationFrame(this.drain)}}get running(){return this.timerId!==void 0}start(){if(this.running)return;const t=this.ensureContext();this.beat=0,this.pending=[],this.nextTime=t.currentTime+.06,this.schedule(),this.timerId=window.setInterval(()=>this.schedule(),pe),this.frameId=requestAnimationFrame(this.drain)}stop(){window.clearInterval(this.timerId),this.frameId!==void 0&&cancelAnimationFrame(this.frameId),this.timerId=void 0,this.frameId=void 0,this.pending=[]}playTap(){const t=this.ensureContext();this.click(t.currentTime,me,fe)}ensureContext(){return this.ctx??(this.ctx=new AudioContext),this.ctx.resume(),this.ctx}schedule(){const t=this.ctx;for(;this.nextTime<t.currentTime+ce;){this.beat>=this.beatsPerBar&&(this.beat=0);const e=this.beat===0;this.click(this.nextTime,e?de:ue,e?ge:be),this.pending.push({time:this.nextTime,beat:this.beat}),this.nextTime+=60/this.bpm,this.beat++}}click(t,e,i){const r=this.ctx,a=r.createOscillator(),n=r.createGain();a.frequency.value=e,n.gain.setValueAtTime(0,t),n.gain.linearRampToValueAtTime(i,t+.001),n.gain.exponentialRampToValueAtTime(1e-4,t+.06),a.connect(n).connect(r.destination),a.start(t),a.stop(t+.07)}}const jt=120,$e=.5,ve=.1;class zt{constructor(t,e,i=0){this.getValue=t,this.setValue=e,this.thresholdPx=i,this.dragged=!1,this.pointerDown=r=>{r.button===0&&(r.currentTarget.setPointerCapture(r.pointerId),this.start={x:r.clientX,y:r.clientY,value:this.getValue()},this.dragged=!1)},this.pointerMove=r=>{if(!this.start)return;const a=r.clientX-this.start.x,n=this.start.y-r.clientY;!this.dragged&&Math.hypot(a,n)<this.thresholdPx||(this.dragged=!0,this.setValue(Math.round(this.start.value+(a+n)*(r.shiftKey?ve:$e))))},this.pointerUp=()=>{this.start=void 0},this.wheel=r=>{r.preventDefault();const a=r.deltaY||r.deltaX;a&&this.setValue(this.getValue()+(a<0?1:-1))}}}var ye=Object.defineProperty,we=Object.getOwnPropertyDescriptor,Lt=(s,t,e,i)=>{for(var r=i>1?void 0:i?we(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&ye(t,e,r),r};const _e=40,Kt=72,D=7,u=1.2,N=D/2,H=_e-D/2,lt=D/2,R=Kt/2,ht=Kt-D/2;function pt(s,t,e){const i=D/2;return`${t},${s} ${t+i},${s-i} ${e-i},${s-i} ${e},${s} ${e-i},${s+i} ${t+i},${s+i}`}function F(s,t,e){const i=D/2;return`${s},${t} ${s+i},${t+i} ${s+i},${e-i} ${s},${e} ${s-i},${e-i} ${s-i},${t+i}`}const Ae={a:pt(lt,N+u,H-u),b:F(H,lt+u,R-u),c:F(H,R+u,ht-u),d:pt(ht,N+u,H-u),e:F(N,R+u,ht-u),f:F(N,lt+u,R-u),g:pt(R,N+u,H-u)},Ee={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcdfg","-":"g",_:"d"," ":""};let J=class extends v{constructor(){super(...arguments),this.text=""}render(){return[...this.text].map(s=>{const t=Ee[s]??"";return T`<svg viewBox="-9 -1 52 74" aria-hidden="true">
+ */function Re(s,e){return(t,i,a)=>{const r=n=>{var l;return((l=n.renderRoot)==null?void 0:l.querySelector(s))??null};if(e){const{get:n,set:l}=typeof i=="object"?t:a??(()=>{const o=Symbol();return{get(){return this[o]},set(p){this[o]=p}}})();return Pe(t,i,{get(){let o=n.call(this);return o===void 0&&(o=r(this),(o!==null||this.hasUpdated)&&l.call(this,o)),o}})}return Pe(t,i,{get(){return r(this)}})}}const ct=25,dt=.1,ut=1600,gt=1100,bt=.9,mt=.7,ft=900,xt=.4,vt=800,yt=.6,$t=.2;class wt{constructor(){this.bpm=120,this.beatsPerBar=4,this.clicksPerBeat=1,this.nextTime=0,this.beat=0,this.click=0,this.pending=[],this.onVisibilityChange=()=>{var e;document.visibilityState==="visible"&&((e=this.ctx)==null||e.resume())},this.drain=()=>{var t;const e=this.ctx.currentTime;for(;this.pending.length&&this.pending[0].time<=e;){const{beat:i,click:a}=this.pending.shift();(t=this.onClick)==null||t.call(this,i,a)}this.frameId=requestAnimationFrame(this.drain)}}get running(){return this.timerId!==void 0}start(){if(this.running)return;const e=this.ensureContext();this.beat=0,this.click=0,this.pending=[],this.nextTime=e.currentTime+.06,this.schedule(),this.timerId=window.setInterval(()=>this.schedule(),ct),this.frameId=requestAnimationFrame(this.drain),document.addEventListener("visibilitychange",this.onVisibilityChange)}stop(){document.removeEventListener("visibilitychange",this.onVisibilityChange),window.clearInterval(this.timerId),this.frameId!==void 0&&cancelAnimationFrame(this.frameId),this.timerId=void 0,this.frameId=void 0,this.pending=[]}playTap(){const e=this.ensureContext();this.playClick(e.currentTime,vt,yt)}ensureContext(){if(!this.ctx){const e=navigator.audioSession;e&&(e.type="playback"),this.ctx=new AudioContext}return this.ctx.resume(),this.ctx}schedule(){const e=this.ctx;for(;this.nextTime<e.currentTime-$t;)this.wrap(),this.advance();for(;this.nextTime<e.currentTime+dt;)this.wrap(),this.click>0?this.playClick(this.nextTime,ft,xt):this.beat===0?this.playClick(this.nextTime,ut,bt):this.playClick(this.nextTime,gt,mt),this.pending.push({time:this.nextTime,beat:this.beat,click:this.click}),this.advance()}wrap(){this.click>=this.clicksPerBeat&&(this.click=0,this.beat++),this.beat>=this.beatsPerBar&&(this.beat=0)}advance(){this.nextTime+=60/this.bpm/this.clicksPerBeat,this.click++}playClick(e,t,i){const a=this.ctx,r=a.createOscillator(),n=a.createGain();r.frequency.value=t,n.gain.setValueAtTime(0,e),n.gain.linearRampToValueAtTime(i,e+.001),n.gain.exponentialRampToValueAtTime(1e-4,e+.06),r.connect(n).connect(a.destination),r.start(e),r.stop(e+.07)}}const je=120,_t=.5,kt=.1;class ze{constructor(e,t,i=0){this.getValue=e,this.setValue=t,this.thresholdPx=i,this.dragged=!1,this.pointerDown=a=>{a.button===0&&(a.currentTarget.setPointerCapture(a.pointerId),this.start={x:a.clientX,y:a.clientY,value:this.getValue()},this.dragged=!1)},this.pointerMove=a=>{if(!this.start)return;const r=a.clientX-this.start.x,n=this.start.y-a.clientY;!this.dragged&&Math.hypot(r,n)<this.thresholdPx||(this.dragged=!0,this.setValue(Math.round(this.start.value+(r+n)*(a.shiftKey?kt:_t))))},this.pointerUp=()=>{this.start=void 0},this.wheel=a=>{a.preventDefault();const r=a.deltaY||a.deltaX;r&&this.setValue(this.getValue()+(r<0?1:-1))}}}var At=Object.defineProperty,Et=Object.getOwnPropertyDescriptor,Ke=(s,e,t,i)=>{for(var a=i>1?void 0:i?Et(e,t):e,r=s.length-1,n;r>=0;r--)(n=s[r])&&(a=(i?n(e,t,a):n(a))||a);return i&&a&&At(e,t,a),a};const Ct=40,qe=72,B=7,u=1.2,U=B/2,L=Ct-B/2,he=B/2,H=qe/2,pe=qe-B/2;function ce(s,e,t){const i=B/2;return`${e},${s} ${e+i},${s-i} ${t-i},${s-i} ${t},${s} ${t-i},${s+i} ${e+i},${s+i}`}function F(s,e,t){const i=B/2;return`${s},${e} ${s+i},${e+i} ${s+i},${t-i} ${s},${t} ${s-i},${t-i} ${s-i},${e+i}`}const Pt={a:ce(he,U+u,L-u),b:F(L,he+u,H-u),c:F(L,H+u,pe-u),d:ce(pe,U+u,L-u),e:F(U,H+u,pe-u),f:F(U,he+u,H-u),g:ce(H,U+u,L-u)},St={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcdfg","-":"g",_:"d"," ":""};let Q=class extends w{constructor(){super(...arguments),this.text=""}render(){return[...this.text].map(s=>{const e=St[s]??"";return E`<svg viewBox="-9 -1 52 74" aria-hidden="true">
         <g transform="skewX(-6)">
-          ${Object.entries(Ae).map(([e,i])=>Ht`<polygon points=${i} class=${t.includes(e)?"on":"off"}></polygon>`)}
+          ${Object.entries(Pt).map(([t,i])=>He`<polygon points=${i} class=${e.includes(t)?"on":"off"}></polygon>`)}
         </g>
-      </svg>`})}};J.styles=tt`
+      </svg>`})}};Q.styles=te`
     :host {
       display: inline-flex;
       gap: 0.35em;
@@ -82,7 +102,7 @@
     .off {
       fill: rgba(255, 58, 31, 0.07);
     }
-  `;Lt([y()],J.prototype,"text",2);J=Lt([st("segment-display")],J);var ke=Object.defineProperty,Pe=Object.getOwnPropertyDescriptor,_=(s,t,e,i)=>{for(var r=i>1?void 0:i?Pe(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&ke(t,e,r),r};let g=class extends v{constructor(){super(...arguments),this.value=120,this.min=30,this.max=300,this.editing=!1,this.buffer="",this.gestures=new zt(()=>this.value,s=>this.emit(s),4)}render(){const s=this.editing?(this.buffer+"___").slice(0,3):String(this.value).padStart(3," ");return T`
+  `;Ke([_()],Q.prototype,"text",2);Q=Ke([ie("segment-display")],Q);var Tt=Object.defineProperty,Mt=Object.getOwnPropertyDescriptor,k=(s,e,t,i)=>{for(var a=i>1?void 0:i?Mt(e,t):e,r=s.length-1,n;r>=0;r--)(n=s[r])&&(a=(i?n(e,t,a):n(a))||a);return i&&a&&Tt(e,t,a),a};let b=class extends w{constructor(){super(...arguments),this.value=120,this.min=30,this.max=300,this.editing=!1,this.buffer="",this.gestures=new ze(()=>this.value,s=>this.emit(s),4)}render(){const s=this.editing?(this.buffer+"___").slice(0,3):String(this.value).padStart(3," ");return E`
       <div
         class="glass ${this.editing?"editing":""}"
         role="button"
@@ -90,13 +110,13 @@
         title="Click to type a tempo. Drag or scroll to adjust, Shift for fine control, double-click to reset."
         aria-label="Tempo ${this.value} BPM. Activate to type a new tempo."
         @click=${()=>!this.gestures.dragged&&this.startEdit()}
-        @dblclick=${()=>{this.finish(!1),this.emit(jt)}}
+        @dblclick=${()=>{this.finish(!1),this.emit(je)}}
         @pointerdown=${this.gestures.pointerDown}
         @pointermove=${this.gestures.pointerMove}
         @pointerup=${this.gestures.pointerUp}
         @pointercancel=${this.gestures.pointerUp}
-        @wheel=${t=>this.editing?t.preventDefault():this.gestures.wheel(t)}
-        @keydown=${t=>t.key==="Enter"&&this.startEdit()}
+        @wheel=${e=>this.editing?e.preventDefault():this.gestures.wheel(e)}
+        @keydown=${e=>e.key==="Enter"&&this.startEdit()}
       >
         <segment-display .text=${s}></segment-display>
         <span class="unit">BPM</span>
@@ -109,7 +129,7 @@
           @blur=${()=>this.finish(!0)}
         />
       </div>
-    `}async startEdit(){this.editing||(this.buffer="",this.editing=!0,await this.updateComplete,this.input.value="",this.input.focus())}onInput(){this.buffer=this.input.value.replace(/\D/g,"").slice(0,3),this.input.value=this.buffer}onInputKeyDown(s){(s.key==="Enter"||s.key==="Escape")&&(s.preventDefault(),s.stopPropagation(),this.finish(s.key==="Enter"))}finish(s){this.editing&&(this.editing=!1,s&&this.buffer&&this.emit(Number(this.buffer)),this.shadowRoot.activeElement===this.input&&this.glass.focus())}emit(s){const t=Math.min(this.max,Math.max(this.min,s));t!==this.value&&this.dispatchEvent(new CustomEvent("tempo-change",{detail:t,bubbles:!0,composed:!0}))}};g.styles=tt`
+    `}async startEdit(){this.editing||(this.buffer="",this.editing=!0,await this.updateComplete,this.input.value="",this.input.focus())}onInput(){this.buffer=this.input.value.replace(/\D/g,"").slice(0,3),this.input.value=this.buffer}onInputKeyDown(s){(s.key==="Enter"||s.key==="Escape")&&(s.preventDefault(),s.stopPropagation(),this.finish(s.key==="Enter"))}finish(s){this.editing&&(this.editing=!1,s&&this.buffer&&this.emit(Number(this.buffer)),this.shadowRoot.activeElement===this.input&&this.glass.focus())}emit(s){const e=Math.min(this.max,Math.max(this.min,s));e!==this.value&&this.dispatchEvent(new CustomEvent("tempo-change",{detail:e,bubbles:!0,composed:!0}))}};b.styles=te`
     :host {
       display: block;
     }
@@ -180,13 +200,13 @@
       height: 1px;
       pointer-events: none;
     }
-  `;_([y({type:Number})],g.prototype,"value",2);_([y({type:Number})],g.prototype,"min",2);_([y({type:Number})],g.prototype,"max",2);_([w()],g.prototype,"editing",2);_([w()],g.prototype,"buffer",2);_([It("input")],g.prototype,"input",2);_([It(".glass")],g.prototype,"glass",2);g=_([st("tempo-display")],g);var Se=Object.defineProperty,Ce=Object.getOwnPropertyDescriptor,it=(s,t,e,i)=>{for(var r=i>1?void 0:i?Ce(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&Se(t,e,r),r};const Q=270,St=28,Te=Array.from({length:St},(s,t)=>{const e=(-Q/2+Q*t/(St-1)-90)*Math.PI/180,i=t%3===0?41:44;return Ht`<line
-    x1=${50+i*Math.cos(e)}
-    y1=${50+i*Math.sin(e)}
-    x2=${50+48*Math.cos(e)}
-    y2=${50+48*Math.sin(e)}
-    class=${t%3===0?"major":""}
-  ></line>`});let B=class extends v{constructor(){super(...arguments),this.value=120,this.min=30,this.max=300,this.gestures=new zt(()=>this.value,s=>this.emit(s))}render(){const s=-Q/2+Q*(this.value-this.min)/(this.max-this.min);return T`
+  `;k([_({type:Number})],b.prototype,"value",2);k([_({type:Number})],b.prototype,"min",2);k([_({type:Number})],b.prototype,"max",2);k([m()],b.prototype,"editing",2);k([m()],b.prototype,"buffer",2);k([Re("input")],b.prototype,"input",2);k([Re(".glass")],b.prototype,"glass",2);b=k([ie("tempo-display")],b);var Ot=Object.defineProperty,Dt=Object.getOwnPropertyDescriptor,ae=(s,e,t,i)=>{for(var a=i>1?void 0:i?Dt(e,t):e,r=s.length-1,n;r>=0;r--)(n=s[r])&&(a=(i?n(e,t,a):n(a))||a);return i&&a&&Ot(e,t,a),a};const ee=270,Se=28,Bt=Array.from({length:Se},(s,e)=>{const t=(-ee/2+ee*e/(Se-1)-90)*Math.PI/180,i=e%3===0?41:44;return He`<line
+    x1=${50+i*Math.cos(t)}
+    y1=${50+i*Math.sin(t)}
+    x2=${50+48*Math.cos(t)}
+    y2=${50+48*Math.sin(t)}
+    class=${e%3===0?"major":""}
+  ></line>`});let D=class extends w{constructor(){super(...arguments),this.value=120,this.min=30,this.max=300,this.gestures=new ze(()=>this.value,s=>this.emit(s))}render(){const s=-ee/2+ee*(this.value-this.min)/(this.max-this.min);return E`
       <div
         class="wrap"
         role="slider"
@@ -197,21 +217,21 @@
         aria-valuenow=${this.value}
         aria-valuetext="${this.value} BPM"
         title="Drag, scroll or use arrow keys. Shift for fine control, double-click to reset."
-        @pointerdown=${t=>{t.currentTarget.focus(),this.gestures.pointerDown(t)}}
+        @pointerdown=${e=>{e.currentTarget.focus(),this.gestures.pointerDown(e)}}
         @pointermove=${this.gestures.pointerMove}
         @pointerup=${this.gestures.pointerUp}
         @pointercancel=${this.gestures.pointerUp}
         @wheel=${this.gestures.wheel}
         @keydown=${this.onKeyDown}
-        @dblclick=${()=>this.emit(jt)}
+        @dblclick=${()=>this.emit(je)}
       >
-        <svg class="scale" viewBox="0 0 100 100" aria-hidden="true">${Te}</svg>
+        <svg class="scale" viewBox="0 0 100 100" aria-hidden="true">${Bt}</svg>
         <div class="shadow"></div>
         <div class="skirt" style="transform: rotate(${s}deg)"></div>
         <div class="cap"></div>
         <div class="pointer" style="transform: rotate(${s}deg)"></div>
       </div>
-    `}onKeyDown(s){const t={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1,PageUp:10,PageDown:-10};if(s.key in t)this.emit(this.value+t[s.key]*(s.shiftKey?10:1));else if(s.key==="Home")this.emit(this.min);else if(s.key==="End")this.emit(this.max);else return;s.preventDefault()}emit(s){const t=Math.min(this.max,Math.max(this.min,s));t!==this.value&&this.dispatchEvent(new CustomEvent("tempo-change",{detail:t,bubbles:!0,composed:!0}))}};B.styles=tt`
+    `}onKeyDown(s){const e={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1,PageUp:10,PageDown:-10};if(s.key in e)this.emit(this.value+e[s.key]*(s.shiftKey?10:1));else if(s.key==="Home")this.emit(this.min);else if(s.key==="End")this.emit(this.max);else return;s.preventDefault()}emit(s){const e=Math.min(this.max,Math.max(this.min,s));e!==this.value&&this.dispatchEvent(new CustomEvent("tempo-change",{detail:e,bubbles:!0,composed:!0}))}};D.styles=te`
     :host {
       display: block;
       width: var(--knob-size, 132px);
@@ -306,7 +326,7 @@
       background: linear-gradient(180deg, #f3ecd8 0 32%, #1a1a1a 32%);
       box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
     }
-  `;it([y({type:Number})],B.prototype,"value",2);it([y({type:Number})],B.prototype,"min",2);it([y({type:Number})],B.prototype,"max",2);B=it([st("tempo-knob")],B);var Me=Object.defineProperty,Oe=Object.getOwnPropertyDescriptor,S=(s,t,e,i)=>{for(var r=i>1?void 0:i?Oe(t,e):t,a=s.length-1,n;a>=0;a--)(n=s[a])&&(r=(i?n(t,e,r):n(r))||r);return i&&r&&Me(t,e,r),r};const G=30,W=300,ct=[1,2,3,4,5,6,7,8],Be=2e3,Ct="metronome-settings";function Tt(s){const t=2+(s>>2)*2;return`--col: ${s+2}; --m-row: ${t}; --m-num-row: ${t+1}; --m-col: ${s%4+2}`}let m=class extends v{constructor(){super(),this.bpm=120,this.beatsPerBar=4,this.playing=!1,this.led="off",this.currentBeat=-1,this.tapFlash=!1,this.engine=new xe,this.firstTap=0,this.lastTap=-1/0,this.tapCount=0,this.onKeyDown=s=>{s.composedPath()[0]instanceof HTMLInputElement||s.ctrlKey||s.metaKey||s.altKey||(s.code==="Space"?(s.preventDefault(),s.repeat||this.togglePlay()):(s.key==="t"||s.key==="T")&&(s.repeat||this.tap()))},this.onKeyUp=s=>{s.code==="Space"&&!(s.composedPath()[0]instanceof HTMLInputElement)&&s.preventDefault()},this.loadSettings(),this.engine.bpm=this.bpm,this.engine.beatsPerBar=this.beatsPerBar,this.engine.onBeat=s=>this.flashBeat(s)}connectedCallback(){super.connectedCallback(),window.addEventListener("keydown",this.onKeyDown),window.addEventListener("keyup",this.onKeyUp)}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("keydown",this.onKeyDown),window.removeEventListener("keyup",this.onKeyUp),this.engine.stop()}render(){return T`
+  `;ae([_({type:Number})],D.prototype,"value",2);ae([_({type:Number})],D.prototype,"min",2);ae([_({type:Number})],D.prototype,"max",2);D=ae([ie("tempo-knob")],D);var Nt=Object.defineProperty,Ut=Object.getOwnPropertyDescriptor,x=(s,e,t,i)=>{for(var a=i>1?void 0:i?Ut(e,t):e,r=s.length-1,n;r>=0;r--)(n=s[r])&&(a=(i?n(e,t,a):n(a))||a);return i&&a&&Nt(e,t,a),a};const W=30,G=300,de=[1,2,3,4,5,6,7],Te=de.length,Lt=2e3,Me="metronome-settings",Ht="https://buy.stripe.com/14A9ASbbH8aofFefOh3ZK00";function X(s){const e=2+(s>>2)*2;return`--col: ${s+2}; --m-row: ${e}; --m-num-row: ${e+1}; --m-col: ${s%4+2}`}let g=class extends w{constructor(){super(),this.bpm=120,this.beatsPerBar=4,this.clicksPerBeat=1,this.mode="beats",this.playing=!1,this.led="off",this.currentBeat=-1,this.tapFlash=!1,this.engine=new wt,this.firstTap=0,this.lastTap=-1/0,this.tapCount=0,this.updateWakeLock=async()=>{var s;try{this.playing&&document.visibilityState==="visible"?"wakeLock"in navigator&&(!this.wakeLock||this.wakeLock.released)&&(this.wakeLock=await navigator.wakeLock.request("screen"),this.playing||await this.updateWakeLock()):(await((s=this.wakeLock)==null?void 0:s.release()),this.wakeLock=void 0)}catch{}},this.onKeyDown=s=>{s.composedPath()[0]instanceof HTMLInputElement||s.ctrlKey||s.metaKey||s.altKey||(s.code==="Space"?(s.preventDefault(),s.repeat||this.togglePlay()):s.key==="t"||s.key==="T"?s.repeat||this.tap():(s.key==="m"||s.key==="M")&&(s.repeat||this.toggleMode()))},this.onKeyUp=s=>{s.code==="Space"&&!(s.composedPath()[0]instanceof HTMLInputElement)&&s.preventDefault()},this.loadSettings(),this.engine.bpm=this.bpm,this.engine.beatsPerBar=this.beatsPerBar,this.engine.clicksPerBeat=this.clicksPerBeat,this.engine.onClick=(s,e)=>this.flashClick(s,e)}connectedCallback(){super.connectedCallback(),window.addEventListener("keydown",this.onKeyDown),window.addEventListener("keyup",this.onKeyUp),document.addEventListener("visibilitychange",this.updateWakeLock)}disconnectedCallback(){var s;super.disconnectedCallback(),window.removeEventListener("keydown",this.onKeyDown),window.removeEventListener("keyup",this.onKeyUp),document.removeEventListener("visibilitychange",this.updateWakeLock),this.engine.stop(),(s=this.wakeLock)==null||s.release()}render(){const s=this.mode==="beats",e=s?"Beats per bar":"Clicks per beat",t=s?this.beatsPerBar:this.clicksPerBeat,i=a=>{const r=a===this.beatsPerBar,n=a===this.clicksPerBeat;return r&&n?s?"on":"blue on":r?"on":n?"blue on":s?"":"blue"};return E`
       <div class="chassis">
         <div class="cheek left"></div>
         <div class="device">
@@ -316,63 +336,93 @@
             <div class="brand">Metronome<span class="model">FS-1</span></div>
           </header>
 
-          <section class="controls" @tempo-change=${s=>this.setBpm(s.detail)}>
-            <tempo-display .value=${this.bpm} .min=${G} .max=${W}></tempo-display>
+          <section class="controls" @tempo-change=${a=>this.setBpm(a.detail)}>
             <button class="key tap" @click=${this.tap} aria-label="Tap tempo">
               <span class="key-led ${this.tapFlash?"on":""}"></span>
             </button>
-            <tempo-knob .value=${this.bpm} .min=${G} .max=${W}></tempo-knob>
+            <tempo-display .value=${this.bpm} .min=${W} .max=${G}></tempo-display>
+            <tempo-knob .value=${this.bpm} .min=${W} .max=${G}></tempo-knob>
             <div class="led-cell">
               <div class="bezel"><div class="led ${this.led}" role="presentation"></div></div>
             </div>
 
-            <div class="label dim">Click to type · drag or scroll to adjust</div>
             <div class="label">Tap</div>
+            <div class="label dim">Click to type · drag or scroll to adjust</div>
             <div class="label knob-label">Tempo</div>
             <div class="label led-label">Beat</div>
           </section>
 
           <section class="sequencer">
-            <div class="label start-label">Start / Stop</div>
             <button class="key start" @click=${this.togglePlay} aria-label=${this.playing?"Stop":"Start"}>
               <span class="key-led ${this.playing?"on":""}"></span>
             </button>
+            <div class="label start-label">Start / Stop</div>
 
-            <div class="label title">Beats per bar</div>
-            ${ct.map((s,t)=>T`<div class="num" style=${Tt(t)}>${s}</div>`)}
-            <div class="beat-buttons" role="radiogroup" aria-label="Beats per bar">
-              ${ct.map((s,t)=>T`
+            <div class="modes">
+              <div class="mode-option">
+                <span class="panel-led ${this.mode==="beats"?"on":""}"></span>
+                <span class="label">Beats per bar</span>
+              </div>
+              <div class="mode-option">
+                <span class="panel-led blue ${this.mode==="clicks"?"on":""}"></span>
+                <span class="label">Clicks per beat</span>
+              </div>
+            </div>
+            ${de.map((a,r)=>E`
+                <div class="num" style=${X(r)}>
+                  <span class="panel-led green ${r===this.currentBeat?"on":""}"></span>
+                </div>
+              `)}
+            <div class="num label mode-label" style=${X(Te)}>Mode</div>
+            <div class="beat-buttons" role="radiogroup" aria-label=${e}>
+              ${de.map((a,r)=>E`
                   <button
                     class="key step"
-                    data-group=${t>>1}
-                    style=${Tt(t)}
+                    style=${X(r)}
                     role="radio"
-                    aria-checked=${s===this.beatsPerBar}
-                    aria-label="${s} beats per bar"
-                    @click=${()=>this.setBeats(s)}
+                    aria-checked=${a===t}
+                    aria-label="${a} ${e.toLowerCase()}"
+                    @click=${()=>this.setStep(a)}
                   >
-                    <span class="key-led ${s===this.beatsPerBar||t===this.currentBeat?"on":""}"></span>
+                    <span class="key-led ${i(a)}"></span>
+                    <span class="cap-num">${a}</span>
                   </button>
                 `)}
             </div>
+            <button
+              class="key step mode"
+              style=${X(Te)}
+              @click=${this.toggleMode}
+              aria-label="Mode: ${e.toLowerCase()}"
+            >
+              <span class="key-led on ${s?"":"blue"}"></span>
+            </button>
           </section>
 
           <footer>
             <span class="screw bl"></span>
             <span class="screw br"></span>
             <span class="hints">
-              <kbd>Space</kbd> start/stop &nbsp;·&nbsp; <kbd>T</kbd> tap &nbsp;·&nbsp; drag or scroll knob or display,
+              <kbd>Space</kbd> start/stop &nbsp;·&nbsp; <kbd>T</kbd> tap &nbsp;·&nbsp; <kbd>M</kbd> mode &nbsp;·&nbsp; drag or scroll knob or display,
               <kbd>Shift</kbd> for fine steps
             </span>
           </footer>
         </div>
         <div class="cheek right"></div>
       </div>
-    `}setBpm(s){this.bpm=Math.round(Math.min(W,Math.max(G,s))),this.engine.bpm=this.bpm,this.saveSettings()}setBeats(s){this.beatsPerBar=s,this.engine.beatsPerBar=s,this.saveSettings()}togglePlay(){this.engine.running?(this.engine.stop(),this.playing=!1,this.led="off",this.currentBeat=-1):(this.engine.start(),this.playing=!0)}tap(){const s=performance.now();s-this.lastTap>Be&&(this.firstTap=s,this.tapCount=0),this.lastTap=s,this.tapCount++,this.tapCount>=2&&this.setBpm(6e4/((s-this.firstTap)/(this.tapCount-1))),this.engine.playTap(),this.tapFlash=!0,window.clearTimeout(this.tapTimer),this.tapTimer=window.setTimeout(()=>this.tapFlash=!1,90)}flashBeat(s){this.led=s===0?"accent":"beat",this.currentBeat=s,window.clearTimeout(this.ledTimer),this.ledTimer=window.setTimeout(()=>this.led="off",Math.min(110,3e4/this.bpm))}loadSettings(){try{const s=JSON.parse(localStorage.getItem(Ct)??"{}");typeof s.bpm=="number"&&(this.bpm=Math.min(W,Math.max(G,s.bpm))),ct.includes(s.beatsPerBar)&&(this.beatsPerBar=s.beatsPerBar)}catch{}}saveSettings(){try{const{bpm:s,beatsPerBar:t}=this;localStorage.setItem(Ct,JSON.stringify({bpm:s,beatsPerBar:t}))}catch{}}};m.styles=tt`
+      ${E`
+            <p class="tip">
+              Made by Daniel with love. If FS-1 keeps you in time,
+              <a href=${Ht} target="_blank" rel="noopener">buy me a Flat White ☕</a>
+            </p>
+          `}
+    `}setBpm(s){this.bpm=Math.round(Math.min(G,Math.max(W,s))),this.engine.bpm=this.bpm,this.saveSettings()}setStep(s){this.mode==="beats"?(this.beatsPerBar=s,this.engine.beatsPerBar=s):(this.clicksPerBeat=s,this.engine.clicksPerBeat=s)}toggleMode(){this.mode=this.mode==="beats"?"clicks":"beats"}togglePlay(){this.engine.running?(this.engine.stop(),this.playing=!1,this.led="off",this.currentBeat=-1):(this.engine.start(),this.playing=!0),this.updateWakeLock()}tap(){const s=performance.now();s-this.lastTap>Lt&&(this.firstTap=s,this.tapCount=0),this.lastTap=s,this.tapCount++,this.tapCount>=2&&this.setBpm(6e4/((s-this.firstTap)/(this.tapCount-1))),this.engine.playTap(),this.tapFlash=!0,window.clearTimeout(this.tapTimer),this.tapTimer=window.setTimeout(()=>this.tapFlash=!1,90)}flashClick(s,e){this.currentBeat=s,!(e>0)&&(this.led=s===0?"accent":"beat",window.clearTimeout(this.ledTimer),this.ledTimer=window.setTimeout(()=>this.led="off",Math.min(110,3e4/this.bpm)))}loadSettings(){try{const s=JSON.parse(localStorage.getItem(Me)??"{}");typeof s.bpm=="number"&&(this.bpm=Math.min(G,Math.max(W,s.bpm)))}catch{}}saveSettings(){try{localStorage.setItem(Me,JSON.stringify({bpm:this.bpm}))}catch{}}};g.styles=te`
     :host {
       --ink: #e8e1cc;
       --yellow: #dcb544;
       --label-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      /* Width of the start/stop key, shared by the tap key above it. */
+      --start-width: 80px;
       /* Procedural textures (inline SVG noise) so the page needs no image requests. */
       --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .32 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       --brushed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.002 .9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.1 0 0 0 -.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
@@ -391,8 +441,8 @@
       border-radius: 12px;
       box-shadow:
         0 2px 0 rgba(255, 255, 255, 0.04),
-        0 28px 50px rgba(0, 0, 0, 0.7),
-        0 60px 90px rgba(0, 0, 0, 0.45);
+        0 10px 18px rgba(0, 0, 0, 0.6),
+        0 22px 36px rgba(0, 0, 0, 0.35);
     }
     .cheek {
       flex: 0 0 34px;
@@ -558,13 +608,14 @@
 
     /*
      * Controls on the first grid row, all labels on the second, so the labels share one baseline.
-     * Display, tap button and knob all take --panel-height.
+     * Display, tap button and knob all take --panel-height. The tap button sits directly above
+     * start/stop and shares its width (--start-width).
      */
     .controls {
       --panel-height: 104px;
       --knob-size: var(--panel-height);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto auto auto;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
       grid-template-rows: var(--panel-height) auto;
       justify-items: center;
       gap: 0.75rem 1.5rem;
@@ -635,10 +686,13 @@
     }
 
     /* Plastic keycaps seated in dark panel cut-outs */
+    /* Fast repeated taps (tap tempo) must not zoom the page or open the iOS callout. */
     button {
       font: inherit;
       color: inherit;
       -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
     }
     button:focus-visible {
       outline: 2px solid var(--yellow);
@@ -682,13 +736,23 @@
         0 0 0 2.5px rgba(255, 255, 255, 0.04),
         0 1px 2px rgba(0, 0, 0, 0.6);
     }
-    .key .key-led {
+    .key > .key-led {
       position: absolute;
       top: 9px;
       left: 50%;
+      margin-left: -5px;
+      z-index: 1;
+    }
+    /*
+     * Small indicator LEDs, on the keys (.key-led) and on the panel (.panel-led: by the mode names
+     * and under the value keys): red by default (also beats per bar), blue for clicks per beat,
+     * green for the beat being played.
+     */
+    .key-led,
+    .panel-led {
+      flex: none;
       width: 10px;
       height: 10px;
-      margin-left: -5px;
       border-radius: 50%;
       background:
         radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2.5px),
@@ -696,9 +760,26 @@
       box-shadow:
         0 0 0 1.5px rgba(0, 0, 0, 0.35),
         0 1px 0 1.5px rgba(255, 255, 255, 0.35);
-      z-index: 1;
     }
-    .key .key-led.on {
+    /* On the dark panel the LEDs get a darker ring and a fainter highlight than on the keys. */
+    .panel-led {
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.6),
+        0 1px 0 1.5px rgba(255, 255, 255, 0.12);
+    }
+    .key-led.blue,
+    .panel-led.blue {
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #1c3a72, #0a1838);
+    }
+    .panel-led.green {
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.4) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #1f5a26, #0b2a10);
+    }
+    .key-led.on,
+    .panel-led.on {
       background:
         radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2.5px),
         radial-gradient(circle at 50% 50%, #ffb39f, #ff3a1c 55%, #c01a06);
@@ -706,34 +787,67 @@
         0 0 0 1.5px rgba(0, 0, 0, 0.3),
         0 0 7px 3px rgba(255, 58, 28, 0.6);
     }
-
+    .panel-led.green.on {
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #c8ffcf, #45f06a 55%, #0f9c2c);
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.5),
+        0 0 7px 3px rgba(50, 230, 90, 0.55);
+    }
+    .key-led.blue.on,
+    .panel-led.blue.on {
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #bcd8ff, #3d8bff 55%, #1250c4);
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.3),
+        0 0 7px 3px rgba(60, 140, 255, 0.6);
+    }
     .tap {
       --cap-top: #bdbab2;
       --cap-mid: #a19e96;
       --cap-low: #84817a;
-      width: 96px;
+      width: var(--start-width);
+      /*
+       * The display's frame is drawn 5px outside its box, the key's outline only 1.5px; stretch the
+       * key 3.5px past its grid row on both sides so their outer edges line up.
+       */
+      margin-block: -3.5px;
     }
 
     /* Bottom section: start/stop sits in the first column of the same grid as the beat buttons. */
     .sequencer {
       display: grid;
-      grid-template-columns: 92px repeat(8, minmax(0, 1fr));
+      grid-template-columns: calc(var(--start-width) + 0.8rem) repeat(8, minmax(0, 1fr));
       gap: 0.55rem 0.6rem;
       padding: 1.4rem 2.4rem 1.6rem;
       border-top: 1px solid rgba(0, 0, 0, 0.65);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.2));
     }
-    .sequencer .title {
+    .modes {
       grid-area: 1 / 2 / 2 / -1;
       align-self: end;
-      text-align: left;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem 1.8rem;
     }
-    .start-label {
-      grid-area: 1 / 1;
-      align-self: end;
+    .mode-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    /* Red silkscreen labels under the start/stop and mode keys */
+    .start-label,
+    .mode-label {
       color: #e0533d;
-      white-space: normal;
+    }
+    /* Centred on the key; it may overhang its column slightly rather than wrap. */
+    .start-label {
+      grid-area: 3 / 1;
+      justify-self: center;
     }
     .start,
     .step {
@@ -741,7 +855,7 @@
     }
     .start {
       grid-area: 2 / 1;
-      margin-right: 0.8rem;
+      width: var(--start-width);
     }
     .beat-buttons {
       display: contents;
@@ -750,28 +864,45 @@
     .step {
       grid-area: 2 / var(--col);
     }
+    /* Row under the keys: a green beat LED under each value key, the "Mode" label under the mode key. */
     .num {
       grid-area: 3 / var(--col);
-      font-size: 0.8rem;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /*
+     * Number moulded into the cap, below the key LED and above the front lip: a darker shade of the
+     * cap colour, with a light lower edge and a faint dark upper edge so it reads as recessed.
+     */
+    .cap-num {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 11px;
+      font-family: 'DIN Alternate', 'DIN Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-stretch: condensed;
+      letter-spacing: 0.04em;
+      line-height: 1;
       text-align: center;
-      opacity: 0.92;
+      color: rgba(120, 86, 6, 0.75);
+      text-shadow:
+        0 1px 0 rgba(255, 246, 205, 0.6),
+        0 -1px 0 rgba(70, 48, 0, 0.18);
+      pointer-events: none;
     }
-    /* Beat keys in 808-style coloured pairs: red, orange, yellow, then the default off-white */
-    .step[data-group='0'] {
-      --cap-top: #f0614a;
-      --cap-mid: #e2432c;
-      --cap-low: #a82b1b;
-    }
-    .step[data-group='1'] {
-      --cap-top: #fb9a52;
-      --cap-mid: #f07b2a;
-      --cap-low: #b95915;
-    }
-    .step[data-group='2'] {
+    /* 808-style cap colours: yellow value keys, a red mode key */
+    .step {
       --cap-top: #f9d867;
       --cap-mid: #f2c12e;
       --cap-low: #ba9017;
+    }
+    .step.mode {
+      --cap-top: #f0614a;
+      --cap-mid: #e2432c;
+      --cap-low: #a82b1b;
     }
 
     footer {
@@ -781,6 +912,31 @@
       color: rgba(232, 225, 204, 0.45);
       border-top: 1px solid rgba(0, 0, 0, 0.6);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    /*
+     * Tip line under the device. The page behind it may be light (normal browser tab) or dark
+     * (installed app), so it uses a mid-tone that reads on both.
+     */
+    .tip {
+      margin: 1.1rem 0 0;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      text-align: center;
+      color: #8c8577;
+    }
+    .tip a {
+      color: #e0533d;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 2px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tip a:hover {
+      text-decoration: underline;
+    }
+    .tip a:focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: 3px;
     }
     kbd {
       font: inherit;
@@ -800,10 +956,19 @@
         gap: 0.2rem;
         padding: 0.9rem 1.6rem 0.75rem;
       }
-      /* Two columns: display + tap, then knob + LED, each with its label underneath. */
+      /*
+       * Square start/stop key spanning both rows of beat keys; the tap key above it shares its width.
+       */
+      :host {
+        --key-height: 46px;
+        --num-height: 16px;
+        --row-gap: 0.45rem;
+        --start-width: calc(2 * var(--key-height) + var(--num-height) + 2 * var(--row-gap));
+      }
+      /* Two columns: tap + display, then knob + LED, each with its label underneath. */
       .controls {
         --panel-height: 84px;
-        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-columns: auto minmax(0, 1fr);
         grid-template-rows: var(--panel-height) auto var(--panel-height) auto;
         gap: 0.6rem 0.75rem;
         padding: 1.25rem 1rem;
@@ -820,30 +985,19 @@
       .controls .led-label {
         grid-area: 4 / 2;
       }
-      .tap {
-        width: 72px;
-      }
-      /*
-       * Beat keys in two rows of four (each with its numbers below); a square start/stop key
-       * spans both rows.
-       */
+      /* Beat keys in two rows of four, each with its numbers below. */
       .sequencer {
-        --key-height: 46px;
-        --num-height: 16px;
-        --row-gap: 0.45rem;
-        grid-template-columns: auto repeat(4, minmax(0, 1fr));
+        grid-template-columns: calc(var(--start-width) + 0.4rem) repeat(4, minmax(0, 1fr));
         grid-template-rows: auto var(--key-height) var(--num-height) var(--key-height) var(--num-height);
         gap: var(--row-gap) 0.35rem;
         padding: 1.25rem 1rem;
       }
       .start-label {
-        white-space: nowrap;
+        grid-area: 5 / 1;
       }
       .start {
         grid-area: 2 / 1 / 5 / 2;
-        width: calc(2 * var(--key-height) + var(--num-height) + 2 * var(--row-gap));
         height: auto;
-        margin-right: 0.4rem;
       }
       .step {
         grid-area: var(--m-row) / var(--m-col);
@@ -851,6 +1005,11 @@
       }
       .num {
         grid-area: var(--m-num-row) / var(--m-col);
+      }
+      /* Shorter keys: a slightly smaller number so it stays clear of the key LED. */
+      .cap-num {
+        bottom: 9px;
+        font-size: 1rem;
       }
       /* Keyboard hints are no use on touch screens; keep the strip for the screws. */
       footer {
@@ -861,7 +1020,7 @@
         display: none;
       }
     }
-  `;S([w()],m.prototype,"bpm",2);S([w()],m.prototype,"beatsPerBar",2);S([w()],m.prototype,"playing",2);S([w()],m.prototype,"led",2);S([w()],m.prototype,"currentBeat",2);S([w()],m.prototype,"tapFlash",2);m=S([st("metronome-app")],m);
+  `;x([m()],g.prototype,"bpm",2);x([m()],g.prototype,"beatsPerBar",2);x([m()],g.prototype,"clicksPerBeat",2);x([m()],g.prototype,"mode",2);x([m()],g.prototype,"playing",2);x([m()],g.prototype,"led",2);x([m()],g.prototype,"currentBeat",2);x([m()],g.prototype,"tapFlash",2);g=x([ie("metronome-app")],g);"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("./sw.js").catch(()=>{})});
 </script>
   </head>
   <body>

@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "Metronome FS-1",
+  "short_name": "Metronome",
+  "description": "A vintage drum-machine style metronome with tap tempo, beats per bar and clicks per beat.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1a1816",
+  "theme_color": "#1a1816",
+  "categories": ["music", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
